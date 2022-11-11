@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pj1.mapper.QnaMapper">
+
+	<select id="selectQnaList" resultType="pj1.dto.QnaDto">
+		select * 
+		from qna;
+	</select>
+	
+	<select id="selectQnaDetail" parameterType="int" resultType="pj1.dto.QnaDto">
+		select *
+		from qna where qna_idx = #{qnaIdx}
+	</select>
+	
+	<select id="selectQnaAnswer" parameterType="int" resultType="pj1.dto.QnaDto">
+		SELECT qc.qna_comment_content, qc.qna_comment_writeDate
+	FROM qna q
+	inner JOIN qna_comment qc ON q.qna_idx = qc.qna_idx where q.qna_idx = #{qnaIdx};
+	</select>
+
+</mapper>

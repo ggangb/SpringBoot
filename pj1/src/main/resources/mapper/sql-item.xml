@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pj1.mapper.ItemMapper">
+	<select id="selectItemList" resultType="pj1.dto.ItemDto">
+		 select *
+		  from item where item_deleted_yn = 'N';
+	</select>
+	
+	<select id="selectItemTop" resultType="pj1.dto.ItemDto">
+		select * 
+		 from item where item_rate = 5 and item_deleted_yn = 'N' limit 5;
+	</select>
+	
+	<select id="selectItemDetail" parameterType="String" resultType="pj1.dto.ItemDto">
+		select * 
+		from item where item_deleted_yn = 'N' and item_num = #{itemNum}
+	</select>
+
+</mapper>
+
