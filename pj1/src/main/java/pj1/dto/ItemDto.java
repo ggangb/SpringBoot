@@ -1,13 +1,16 @@
 package pj1.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown =true) 
 public class ItemDto {
 	private String itemNum;
 	private String itemName;
 	private int itemPrice;
-	private int itemRate;
+	private int itemCount;
 	private String itemThumb;
 	private String itemDetailImg;
 	private String itemMaker;
@@ -19,5 +22,10 @@ public class ItemDto {
 	private String itemDeletedYn;
 	private String itemCreatedAt;
 	private String itemUpdatedAt;
+	private String itemThumbName;
+	private String itemDetailImgName;
+	private String itemSubImg;
+	private String itemSubImgName;
+	private String categoryName;
 	
 }

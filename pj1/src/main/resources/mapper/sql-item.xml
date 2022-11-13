@@ -5,16 +5,25 @@
 		 select *
 		  from item where item_deleted_yn = 'N';
 	</select>
-	
-	<select id="selectItemTop" resultType="pj1.dto.ItemDto">
+	<select id="selectItemCategory" parameterType="String" resultType="pj1.dto.ItemDto">
 		select * 
-		 from item where item_rate = 5 and item_deleted_yn = 'N' limit 5;
+			from item where category_name = #{categoryName};
 	</select>
 	
+	<select id="selectItemOrgans" parameterType="String" resultType="pj1.dto.ItemDto">
+		select * 
+			from item where item_organs = #{itemOrgans};
+	</select>
 	<select id="selectItemDetail" parameterType="String" resultType="pj1.dto.ItemDto">
 		select * 
 		from item where item_deleted_yn = 'N' and item_num = #{itemNum}
 	</select>
-
+	
+	<insert id="itemWrite" parameterType="pj1.dto.ItemDto">
+		insert into item (item_num, item_name, item_price, item_thumb, item_detailImg, item_maker, item_how, item_expDate, 
+			item_materials, item_organs, item_score, item_created_at, item_deleted_yn, category_name, item_thumb_name, item_detailImg_name,
+			item_subImg, item_subImg_name) values (#{itemNum}, #{itemName},#{itemPrice},#{itemThumb},#{itemDetailImg},#{itemMaker},#{itemHow},#{itemExpDate},
+			#{itemMaterials}, #{itemOrgans},#{itemScore},now(),'N', #{categoryName},#{itemThumbName},#{itemDetailImgName},#{itemSubImg},#{itemSubImgName})
+	</insert>
 </mapper>
 
