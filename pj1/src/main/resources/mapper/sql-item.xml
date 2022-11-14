@@ -14,6 +14,7 @@
 		select * 
 			from item where item_organs = #{itemOrgans};
 	</select>
+	
 	<select id="selectItemDetail" parameterType="String" resultType="pj1.dto.ItemDto">
 		select * 
 		from item where item_deleted_yn = 'N' and item_num = #{itemNum}

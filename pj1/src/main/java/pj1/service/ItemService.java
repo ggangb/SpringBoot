@@ -16,4 +16,5 @@ public interface ItemService {
 	public List<ItemDto> selectItemCategory(String categoryName) throws Exception;
 	
 	public List<ItemDto> selectItemOrgans(String itemOrgans) throws Exception;
+	
 }

@@ -49,8 +49,12 @@ public class ItemController {
 	@RequestMapping(value = "/itemOrgans/{itemOrgans}", method = RequestMethod.GET)
 	public List<ItemDto> openItemOrgansList(
 			@Parameter(description = "분류 이름", required = true, example = "장") @PathVariable("itemOrgans") String itemOrgans) throws Exception {
+		
 		return itemService.selectItemOrgans(itemOrgans);
 	}
+	
+	
+
 	
 	
 
