@@ -1,18 +1,24 @@
 package pj1.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import pj1.dto.CartDto;
+import pj1.dto.CartListDto;
+import pj1.dto.ItemDto;
 import pj1.dto.MemberDto;
 import pj1.service.CartService;
 
@@ -38,5 +44,14 @@ public class CartController {
 		}
 		
 	}
+	
+	@ApiOperation(value = "나의 장바구니 리스트 조회", notes = "나의 장바구니 리스트 조회")
+	@RequestMapping(value = "/cart/{memEmail}", method = RequestMethod.GET)
+	public List<CartListDto> openCartList(
+			@Parameter(description = "회원 이메일", required = true, example = "이메일") @PathVariable("memEmail") String memEmail) throws Exception {
+		return cartService.selectCartList(memEmail);
+	}
+	
+	
 	
 }
