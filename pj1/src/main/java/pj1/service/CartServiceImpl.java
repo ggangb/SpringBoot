@@ -33,4 +33,9 @@ public class CartServiceImpl implements CartService {
 		return cartMapper.deleteCartList(cartListDto);
 	}
 
+	@Override
+	public int updateCartList(int itemAmount, int cartIdx) throws Exception {
+		return cartMapper.updateCartList(itemAmount, cartIdx);
+	}
+
 }

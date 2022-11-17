@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
@@ -68,5 +69,18 @@ public class CartController {
 		int success = cartService.deleteCartList(cartIdx);
 		return cartService.selectCartList(cartListDto.get(0).getMemEmail());
 	}
+	
+	@ApiOperation(value = "장바구니 수량 수정", notes = "장바구니 수량 수정")
+	@RequestMapping(value = "/cartupdate", method = RequestMethod.POST)
+	public List<CartListDto> updateCart(@RequestBody CartListDto cartListDto) throws Exception {
+		
+		cartService.updateCartList(cartListDto.getItemAmount(), cartListDto.getCartIdx());
+		
+		return cartService.selectCartList(cartListDto.getMemEmail());
+		
+	}
+	
+	
+
 
 }

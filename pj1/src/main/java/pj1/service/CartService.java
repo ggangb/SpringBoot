@@ -11,4 +11,5 @@ public interface CartService {
 	public int insertCart(CartDto cartDto) throws Exception;
 	public List<CartListDto> selectCartList(String memEmail) throws Exception;
 	public int deleteCartList(List<Integer> cartListDto) throws Exception;
+	public int updateCartList(int itemAmount, int cartIdx) throws Exception;
 }

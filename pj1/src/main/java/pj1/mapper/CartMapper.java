@@ -14,4 +14,6 @@ public interface CartMapper {
 	List<CartListDto> selectCartList(String memEmail) throws Exception;
 	
 	int deleteCartList(List<Integer> cartListDto) throws Exception;
+	
+	int updateCartList(int itemAmount, int cartIdx) throws Exception;
 }

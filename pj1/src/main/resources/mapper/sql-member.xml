@@ -7,6 +7,10 @@
 
 	</select>
 	
+	<select id="selectDetailMember" resultType="pj1.dto.MemberDto">
+	select * from member where mem_deleted_yn = 'N' and mem_email = #{memEmail}
+	</select>
+	
 	<insert id="insertMember" parameterType="pj1.dto.MemberDto">
 		insert into
 		member(mem_name,mem_phone,mem_postnum,mem_addr1,mem_addr2,mem_email,mem_pw)
@@ -20,6 +24,7 @@
 	select * from member
 	where mem_email = #{memEmail} and mem_pw = #{memPw}
 	</select>
+	
 </mapper>
 
 
