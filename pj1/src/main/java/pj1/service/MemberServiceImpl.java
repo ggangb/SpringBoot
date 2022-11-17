@@ -45,5 +45,23 @@ public class MemberServiceImpl implements MemberService {
 		return responseVo;
 	}
 
+	@Override
+	public MemberDto selectMemberDetail(int memIdx) throws Exception {
+		return memberMapper.selectMemberDetail(memIdx);
+	}
+
+	@Override
+	public void ydeleteMember(int memIdx) throws Exception {
+		memberMapper.ydeleteMember(memIdx);
+		
+	}
+
+	@Override
+	public void adminmemupdate(MemberDto memberDto) throws Exception {
+		memberMapper.adminmemupdate(memberDto);
+		
+	}
+
+
 
 }

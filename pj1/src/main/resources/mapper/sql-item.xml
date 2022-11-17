@@ -22,9 +22,9 @@
 	
 	<insert id="itemWrite" parameterType="pj1.dto.ItemDto">
 		insert into item (item_num, item_name, item_price, item_thumb, item_detailImg, item_maker, item_how, item_expDate, 
-			item_materials, item_organs, item_score, item_created_at, item_deleted_yn, category_name, item_thumb_name, item_detailImg_name,
+			item_materials, item_organs,  item_thumb_name, item_detailImg_name,
 			item_subImg, item_subImg_name) values (#{itemNum}, #{itemName},#{itemPrice},#{itemThumb},#{itemDetailImg},#{itemMaker},#{itemHow},#{itemExpDate},
-			#{itemMaterials}, #{itemOrgans},#{itemScore},now(),'N', #{categoryName},#{itemThumbName},#{itemDetailImgName},#{itemSubImg},#{itemSubImgName})
+			#{itemMaterials}, #{itemOrgans},#{itemThumbName},#{itemDetailImgName})
 	</insert>
 </mapper>
 
