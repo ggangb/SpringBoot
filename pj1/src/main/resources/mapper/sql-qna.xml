@@ -8,10 +8,10 @@
 		qna_title,
 		date_format(qna_writeDate, '%m.%d %H:%i') as
 		qna_writeDate,
-		qna_hits
+		qna_hits,
+		qna_save
 		from
 		qna
-		where qna_save = 'Y'
 		order by qna_idx desc
 	</select>
 	<select id="selectQnaAnswer" resultType="pj1.dto.QnaDto">

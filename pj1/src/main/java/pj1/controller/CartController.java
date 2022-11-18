@@ -65,6 +65,8 @@ public class CartController {
 		for (int i = 0; i < cartListDto.size(); i++) {
 			cartIdx.add(cartListDto.get(i).getCartIdx());
 		}
+		
+		System.out.println(cartIdx);
 
 		int success = cartService.deleteCartList(cartIdx);
 		return cartService.selectCartList(cartListDto.get(0).getMemEmail());

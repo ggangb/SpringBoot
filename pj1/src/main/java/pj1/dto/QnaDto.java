@@ -13,4 +13,5 @@ public class QnaDto {
 	private int qnaHit;
 	private String qnaCommentContent;
 	private String qnaCommentWriteDate;
+	private String qnaSave;
 }

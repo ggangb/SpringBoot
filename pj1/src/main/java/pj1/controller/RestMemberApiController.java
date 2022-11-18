@@ -45,6 +45,12 @@ public class RestMemberApiController {
 		return memberService.selectDetailMember(memEmail);
 	}
 	
+	@RequestMapping(value="/changeAddr", method = RequestMethod.POST)
+	public ResponseEntity<String> changeAddr(@RequestBody MemberDto member) throws Exception {
+		System.out.println(member);
+		return null;
+	}
+	
 	
 	@RequestMapping(value="/member/join", method = RequestMethod.POST)
 	public ResponseEntity<String> insertMember(@RequestBody MemberDto member) throws Exception {
