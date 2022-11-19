@@ -22,6 +22,7 @@
 	
 	<insert id="itemWrite" parameterType="pj1.dto.ItemDto">
 		insert into item (item_num, item_name, item_price, item_thumb, item_detailImg, item_maker, item_how, item_expDate, 
+
 			item_materials, item_organs, category_name, item_thumb_name, item_detailImg_name
 			) values (#{itemNum}, #{itemName},#{itemPrice},#{itemThumb},#{itemDetailImg},#{itemMaker},#{itemHow},#{itemExpDate},
 			#{itemMaterials}, #{itemOrgans}, #{categoryName},#{itemThumbName},#{itemDetailImgName})

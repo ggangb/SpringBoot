@@ -82,6 +82,28 @@ public class RestMemberApiController {
 			return ResponseEntity.status(HttpStatus.OK).body(responseVo);
 		}		
 	}	
+	
+	
+	@RequestMapping(value = "/member/{memIdx}", method=RequestMethod.GET)
+	public ResponseEntity<MemberDto> selectMemberDetail(@PathVariable("memIdx")int memIdx) throws Exception{
+		MemberDto memberDto = memberService.selectMemberDetail(memIdx);
+		if(memberDto == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}else {
+			return ResponseEntity.ok(memberDto);
+		}
+	}
+	
+	@RequestMapping(value = "/member/{memIdx}", method=RequestMethod.PUT)
+	public void adminmemupdate(@PathVariable("memIdx") int memIdx, @RequestBody MemberDto memberDto) throws Exception{
+		memberDto.setMemIdx(memIdx);
+		memberService.adminmemupdate(memberDto);
+	}
+	
+	@RequestMapping(value = "/member/{memIdx}", method=RequestMethod.DELETE)
+	public void ydeleteMember(@PathVariable("memIdx") int memIdx) throws Exception{
+		memberService.ydeleteMember(memIdx); 
+	}
 
 
 }

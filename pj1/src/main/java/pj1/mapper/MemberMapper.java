@@ -17,5 +17,10 @@ public interface MemberMapper {
 	int insertMember(MemberDto member) throws Exception;
 	MemberDto login(MemberDto memberDto) throws Exception;
 	ResponseVo login(RequestVo requestVo) throws Exception;
+
 	MemberDto selectDetailMember(String memEmail) throws Exception;
+
+	void ydeleteMember(int memberDto) throws Exception;
+	void adminmemupdate(MemberDto memberDto) throws Exception;
+	
 }

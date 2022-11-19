@@ -3,7 +3,10 @@
 
 <mapper namespace="pj1.mapper.MemberMapper">
 	<select id="selectMemberList" resultType="pj1.dto.MemberDto">
-	select * from member where mem_deleted_yn = 'N' order by mem_idx desc 
+		select
+		mem_idx,mem_Name, mem_email, date_format(mem_regDate, '%Y.%m.%d')
+		as
+		mem_regDate,mem_deleted_yn from member order by mem_idx desc
 
 	</select>
 	
@@ -11,18 +14,23 @@
 	select * from member where mem_deleted_yn = 'N' and mem_email = #{memEmail}
 	</select>
 	
+
 	<insert id="insertMember" parameterType="pj1.dto.MemberDto">
 		insert into
 		member(mem_name,mem_phone,mem_postnum,mem_addr1,mem_addr2,mem_email,mem_pw)
 		values(#{memName},#{memPhone},#{memPostNum},#{memAddr1},#{memAddr2},#{memEmail},#{memPw})
 
 		<selectKey keyProperty="memIdx" resultType="Integer">
-			select last_insert_id()
+			select
+			last_insert_id()
 		</selectKey>
 	</insert>
-	<select id="login" parameterType="pj1.dto.MemberDto" resultType="pj1.dto.MemberDto">
-	select * from member
-	where mem_email = #{memEmail} and mem_pw = #{memPw}
+
+	<select id="login" parameterType="pj1.dto.MemberDto"
+		resultType="pj1.dto.MemberDto">
+		select * from member
+		where mem_email = #{memEmail} and
+		mem_pw = #{memPw}
 	</select>
 	
 	<select id="selectMemberDetail" parameterType="int"
@@ -47,15 +55,21 @@
 	</delete>
 	
 	
+	<delete id = "ydeleteMember" parameterType="int">
+		delete from member where mem_idx=#{memIdx} and mem_deleted_yn = "Y"
+	</delete>
+	
+	<update id = "adminmemupdate" parameterType="pj1.dto.MemberDto">
+		update member set mem_deleted_yn = #{memDeletedYn} , mem_name = #{memName} where mem_idx=#{memIdx}
+	</update>
+
+
 
 </mapper>
 
 
 
-<!-- <select id="selectMemberList" resultType="board.dto.MemberDto">
-		select member_seq, member_name, member_email
-		     , date_format(created_datetime, '%Y.%m.%d %H:%i:%s') as created_datetime
-		  from t_member
-		 where deleted_yn = 'N'
-		 order by member_seq desc 
-	</select> -->
+<!-- <select id="selectMemberList" resultType="board.dto.MemberDto"> select 
+	member_seq, member_name, member_email , date_format(created_datetime, '%Y.%m.%d 
+	%H:%i:%s') as created_datetime from t_member where deleted_yn = 'N' order 
+	by member_seq desc </select> -->
