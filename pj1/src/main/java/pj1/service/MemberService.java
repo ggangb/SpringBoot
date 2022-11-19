@@ -18,4 +18,8 @@ public interface MemberService {
 
     public void ydeleteMember(int memberDto) throws Exception;
 	public void adminmemupdate(MemberDto memberDto) throws Exception;
+	
+	public MemberDto validateMemberEmail(String memEmail) throws Exception;
+	public MemberDto findEmail(String memName,String memPhone) throws Exception;
+	public MemberDto findPassword(String memEmail,String memName,String memPhone) throws Exception;
 }

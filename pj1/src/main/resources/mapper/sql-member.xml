@@ -10,10 +10,36 @@
 
 	</select>
 	
-	<select id="selectDetailMember" resultType="pj1.dto.MemberDto">
+	<select id="selectDetailMember" parameterType="String"  resultType="pj1.dto.MemberDto">
 	select * from member where mem_deleted_yn = 'N' and mem_email = #{memEmail}
 	</select>
+	<select id="validateMemberEmail" parameterType="String"
+		resultType="pj1.dto.MemberDto">
+		select mem_email from member
+		where mem_deleted_yn = 'N' and
+		mem_email =#{memEmail}
+	</select>
 	
+	<select id="findByMemberEmail" parameterType="pj1.dto.MemberDto" resultType="pj1.dto.MemberDto">
+	select * from member where mem_email=#{memEmail}
+	</select>
+
+	<select id="findEmail" parameterType="String"
+		resultType="pj1.dto.MemberDto">
+		select mem_email from member
+		where mem_deleted_yn = 'N' and
+		mem_name=#{memName} and
+		mem_phone=#{memPhone}
+	</select>
+
+	<select id="findPassword" parameterType="String"
+		resultType="pj1.dto.MemberDto">
+		select mem_pw from member
+		where mem_deleted_yn = 'N' and
+		mem_email =#{memEmail} and
+		mem_name=#{memName} and
+		mem_phone=#{memPhone}
+	</select>
 
 	<insert id="insertMember" parameterType="pj1.dto.MemberDto">
 		insert into
@@ -29,8 +55,8 @@
 	<select id="login" parameterType="pj1.dto.MemberDto"
 		resultType="pj1.dto.MemberDto">
 		select * from member
-		where mem_email = #{memEmail} and
-		mem_pw = #{memPw}
+		where mem_email = #{memEmail} 
+		<!--  and mem_pw = #{memPw}  -->
 	</select>
 	
 	<select id="selectMemberDetail" parameterType="int"

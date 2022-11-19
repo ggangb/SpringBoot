@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import pj1.dto.QnaDto;
 import pj1.dto.ReviewDto;
 import pj1.service.QnaService;
@@ -25,9 +26,11 @@ public class QnaController {
 	private QnaService qnaService;
 	
 	@ApiOperation(value = "목록 조회", notes = "등록된 Qna 목록을 조회")
-	@RequestMapping(value = "/qna", method = RequestMethod.GET)
-	public List<QnaDto> openQnaList() throws Exception {
-		return qnaService.selectQnaList();
+	@RequestMapping(value = "/qna/{itemIdx}", method = RequestMethod.GET)
+	public List<QnaDto> openQnaList(
+			@Parameter(description = "아이템 번호", required = true, example = "1001001") @PathVariable("itemIdx") int itemIdx) 
+					throws Exception {
+		return qnaService.selectQnaList(itemIdx);
 	}
 	
 	@ApiOperation(value = "Qna 상세 조회", notes = "Qna 상세 조회")
@@ -52,6 +55,33 @@ public class QnaController {
 		} else {
 			return ResponseEntity.ok(qnaDto);
 		}
+	}
+	
+	@ApiOperation(value = "목록 조회", notes = "등록된 게시물 목록을 조회")
+	@RequestMapping(value = "admin/qna", method = RequestMethod.GET)
+	public List<QnaDto> openQnaAllList() throws Exception {
+		return qnaService.selectAllQnaList();
+	}
+		
+	@ApiOperation(value = "Qna 등록", notes = "Qna 제목과 내용을 저장")
+	@RequestMapping(value = "/qnaWrite", method = RequestMethod.POST)
+	public void insertQnaComment(
+			@Parameter(description = "Qna 등록", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody QnaDto qna)
+			throws Exception {
+		qnaService.insertQna(qna);
+	}
+	
+	@ApiOperation(value = "Qna 답변 등록", notes = "Qna 답변 내용을 저장")
+	@RequestMapping(value = "/admin/qnaWrite/{qnaIdx}", method = RequestMethod.POST)
+	public void insertQna(
+			@Parameter(description = "Qna 답변 등록", required = true, example = "{ contents: 내용 }") @RequestBody QnaDto qna)
+			throws Exception {
+		qnaService.insertQnaComment(qna);
+	}
+
+	@RequestMapping(value = "admin/qna/{qnaIdx}", method = RequestMethod.DELETE)
+	public void deleteQna(@PathVariable("qnaIdx") int qnaIdx) throws Exception {
+		qnaService.deleteQna(qnaIdx);
 	}
 
 }

@@ -55,12 +55,8 @@ public class RestMemberApiController {
 	@RequestMapping(value="/member/join", method = RequestMethod.POST)
 	public ResponseEntity<String> insertMember(@RequestBody MemberDto member) throws Exception {
 		
-
-		log.trace("TRACE insertMember() is called");	
-		log.debug("DEBUG insertMember() is called");
-		log.info("INFO insertMember() is called");
-		log.warn("WARN insertMember()) is called");
-		log.error("ERROR insertMember() is called");
+		
+		System.out.println(member);
 
 		int memIdx = memberService.insertMember(member);
 		if (memIdx>0) {
@@ -73,7 +69,7 @@ public class RestMemberApiController {
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public ResponseEntity<ResponseVo> login(@RequestBody RequestVo requestVo) throws Exception {
-		
+		System.out.println(requestVo);
 		ResponseVo responseVo = memberService.login(requestVo);
 		if (responseVo == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -83,16 +79,52 @@ public class RestMemberApiController {
 		}		
 	}	
 	
-	
-	@RequestMapping(value = "/member/{memIdx}", method=RequestMethod.GET)
-	public ResponseEntity<MemberDto> selectMemberDetail(@PathVariable("memIdx")int memIdx) throws Exception{
-		MemberDto memberDto = memberService.selectMemberDetail(memIdx);
-		if(memberDto == null) {
+	@RequestMapping(value="/member/{memEmail}/{memName}/{memPhone}",method = RequestMethod.GET)
+	public ResponseEntity<MemberDto> findPassword(@PathVariable("memEmail") String memEmail,@PathVariable("memName")String memName,@PathVariable("memPhone") String memPhone) throws Exception {
+		MemberDto memberDto = memberService.findPassword(memEmail, memName, memPhone);
+		if (memberDto == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}else {
 			return ResponseEntity.ok(memberDto);
 		}
 	}
+	
+	@RequestMapping(value="/member/{memName}/{memPhone}",method = RequestMethod.GET)
+	public ResponseEntity<MemberDto> findEmail(@PathVariable("memName") String memName,@PathVariable("memPhone") String memPhone ) throws Exception {
+		System.out.println(memName);
+		System.out.println(memPhone);
+		
+		MemberDto memberDto = memberService.findEmail(memName,memPhone);
+		if (memberDto == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}else {
+			return ResponseEntity.ok(memberDto);
+		}
+	}
+	
+	@RequestMapping(value = "/checkemail/{memEmail}",method = RequestMethod.GET)
+	public ResponseEntity<MemberDto> validateMemberEmail(@PathVariable("memEmail") String memEmail) throws Exception {
+		
+		System.out.println(memEmail);
+		
+		MemberDto memberDto = memberService.validateMemberEmail(memEmail);
+		if (memberDto == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	   } else {
+		   return ResponseEntity.ok(memberDto);
+	   }
+		
+	}
+	
+//	@RequestMapping(value = "/member/{memIdx}", method=RequestMethod.GET)
+//	public ResponseEntity<MemberDto> selectMemberDetail(@PathVariable("memIdx")int memIdx) throws Exception{
+//		MemberDto memberDto = memberService.selectMemberDetail(memIdx);
+//		if(memberDto == null) {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		}else {
+//			return ResponseEntity.ok(memberDto);
+//		}
+//	}
 	
 	@RequestMapping(value = "/member/{memIdx}", method=RequestMethod.PUT)
 	public void adminmemupdate(@PathVariable("memIdx") int memIdx, @RequestBody MemberDto memberDto) throws Exception{

@@ -14,10 +14,15 @@ public class QnaServiceImpl implements QnaService {
 	private QnaMapper qnaMapper;
 	
 	@Override
-	public List<QnaDto> selectQnaList() throws Exception {
-		return qnaMapper.selectQnaList();
+	public List<QnaDto> selectQnaList(int itemIdx) throws Exception {
+		return qnaMapper.selectQnaList(itemIdx);
 	}
 
+	@Override
+	public List<QnaDto> selectAllQnaList() throws Exception{
+		return qnaMapper.selectAllQnaList();
+	}
+	
 	@Override
 	public QnaDto selectQnaDetail(int qnaIdx) throws Exception {
 		return qnaMapper.selectQnaDetail(qnaIdx);
@@ -27,5 +32,18 @@ public class QnaServiceImpl implements QnaService {
 	public QnaDto selectQnaAnswer(int qnaIdx) throws Exception {
 		
 		return qnaMapper.selectQnaAnswer(qnaIdx);
+	}
+	@Override
+	public void deleteQna(int qnaIdx) throws Exception {
+		qnaMapper.deleteQna(qnaIdx);
+	}
+	@Override
+	public void insertQna(QnaDto qna) throws Exception {
+		qnaMapper.insertQna(qna);
+	}
+	
+	@Override
+	public void insertQnaComment(QnaDto qna) throws Exception {
+		qnaMapper.insertQnaComment(qna);
 	}
 }

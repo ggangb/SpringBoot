@@ -8,9 +8,17 @@ import pj1.dto.QnaDto;
 
 @Mapper
 public interface QnaMapper {
-	List<QnaDto> selectQnaList() throws Exception;
-	
+	List<QnaDto> selectQnaList(int itemIdx) throws Exception;
+
+	public List<QnaDto> selectAllQnaList() throws Exception;
+
 	QnaDto selectQnaDetail(int qnaIdx) throws Exception;
-	
+
 	QnaDto selectQnaAnswer(int qnaIdx) throws Exception;
+
+	void insertQna(QnaDto qna) throws Exception;
+
+	void insertQnaComment(QnaDto qna) throws Exception;
+
+	void deleteQna(int qnaIdx) throws Exception;
 }
