@@ -15,7 +15,25 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberMapper memberMapper;
-	
+
+	@Override
+	public MemberDto selectMemberDetail(int memIdx) throws Exception {
+		
+		return memberMapper.selectMemberDetail(memIdx);
+	}
+
+	@Override
+	public void updateMemberInfo(MemberDto memberDto) throws Exception {
+		int count = memberMapper.updateMemberInfo(memberDto);
+		System.out.println("xxxxxxxxxxxxxxxxx" + count);
+	}
+
+	@Override
+	public void deleteMemberInfo(int memIdx) throws Exception {
+		int count = memberMapper.deleteMemberInfo(memIdx);
+		System.out.println("xxxxxxxxxxxxxxxxx" + count);
+	}
+
 	@Override
 	public List<MemberDto> selectMemberList() throws Exception {
 		return memberMapper.selectMemberList();
@@ -45,5 +63,11 @@ public class MemberServiceImpl implements MemberService {
 		return responseVo;
 	}
 
+	@Override
+	public MemberDto selectDetailMember(String memEmail) throws Exception {
+		
+		return memberMapper.selectDetailMember(memEmail);
+	}
 
+	
 }

@@ -7,6 +7,10 @@
 
 	</select>
 	
+	<select id="selectDetailMember" resultType="pj1.dto.MemberDto">
+	select * from member where mem_deleted_yn = 'N' and mem_email = #{memEmail}
+	</select>
+	
 	<insert id="insertMember" parameterType="pj1.dto.MemberDto">
 		insert into
 		member(mem_name,mem_phone,mem_postnum,mem_addr1,mem_addr2,mem_email,mem_pw)
@@ -20,6 +24,29 @@
 	select * from member
 	where mem_email = #{memEmail} and mem_pw = #{memPw}
 	</select>
+	
+	<select id="selectMemberDetail" parameterType="int"
+		resultType="pj1.dto.MemberDto">
+		select mem_Idx, mem_role, mem_email, mem_name, mem_birth, mem_phone,
+		mem_postnum, mem_pw,
+		mem_addr1, mem_addr2, date_format(mem_regDate, '%Y.%m.%d
+		%H:%i:%s')
+		as mem_regDate from member where mem_deleted_yn = 'N' and mem_idx=#{memIdx};
+	</select>
+
+	<update id="updateMemberInfo"
+		parameterType="pj1.dto.MemberDto">
+		update member set mem_pw=#{memPw},
+		mem_phone=#{memPhone},
+		mem_postnum=#{memPostNum}, mem_addr1=#{memAddr1},
+		mem_addr2=#{memAddr2}, mem_updateDate = now() where mem_idx=#{memIdx};
+	</update>
+	
+	<delete id="deleteMemberInfo" parameterType="int">
+		update member set mem_deleted_yn = 'Y', mem_updateDate = now() where mem_idx = #{memIdx};
+	</delete>
+	
+	
 </mapper>
 
 

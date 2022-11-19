@@ -10,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import pj1.dto.MemberDto;
 import pj1.service.MemberService;
@@ -34,8 +37,21 @@ public class RestMemberApiController {
 	public List<MemberDto> openMemberList() throws Exception {
 		return memberService.selectMemberList();
 	}
-
-
+	
+	
+	@RequestMapping(value="/member/{memEmail}", method = RequestMethod.GET)
+	public MemberDto openDetailMember(
+			@Parameter(description = "회원 이메일", required = true, example = "이메일") @PathVariable("memEmail") String memEmail) throws Exception {
+		return memberService.selectDetailMember(memEmail);
+	}
+	
+	@RequestMapping(value="/changeAddr", method = RequestMethod.POST)
+	public ResponseEntity<String> changeAddr(@RequestBody MemberDto member) throws Exception {
+		System.out.println(member);
+		return null;
+	}
+	
+	
 	@RequestMapping(value="/member/join", method = RequestMethod.POST)
 	public ResponseEntity<String> insertMember(@RequestBody MemberDto member) throws Exception {
 		

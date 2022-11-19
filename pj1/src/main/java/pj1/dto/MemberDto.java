@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class MemberDto {
+	
 	private int memIdx;
 	private String memRole;
 	private String memEmail;
@@ -18,4 +19,5 @@ public class MemberDto {
 	private String memRegDate;
 	private String memUpdateDate;
 	private String memDeletedYn;
+	
 }

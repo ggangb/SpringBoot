@@ -1,4 +1,5 @@
 package pj1.aop;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 @Slf4j
 public class LoggerAspect {
-	@Pointcut("execution(* result..controller.*Controller.*(..)) || execution(* result..service.*ServiceImpl.*(..)) || execution(* result..mapper.*Mapper.*(..))")
+	@Pointcut("execution(* pj1..interceptor.*Interceptor.*(..)) || execution(* pj1..controller.*Controller.*(..)) || execution(* pj1..service.*ServiceImpl.*(..)) || execution(* pj1..mapper.*Mapper.*(..))")
 	private void loggerTarget() {}
 	
 	@Around("loggerTarget()")
@@ -25,10 +26,11 @@ public class LoggerAspect {
 			type = "Service";
 		} else if (className.indexOf("Mapper") > -1) {
 			type = "Mapper";
+		} else {
+			type = "Interceptor";
 		}
 		
 		log.debug(type + " : " + className + "." + methodName + "()");
 		return joinPoint.proceed();
 	}
 }
-
