@@ -25,6 +25,7 @@
 	where mem_email = #{memEmail} and mem_pw = #{memPw}
 	</select>
 	
+<<<<<<< HEAD
 	<select id="selectMemberDetail" parameterType="int"
 		resultType="pj1.dto.MemberDto">
 		select mem_Idx, mem_role, mem_email, mem_name, mem_birth, mem_phone,
@@ -47,6 +48,8 @@
 	</delete>
 	
 	
+=======
+>>>>>>> branch 'kang' of https://github.com/ggangb/Team-Project.git
 </mapper>
 
 
