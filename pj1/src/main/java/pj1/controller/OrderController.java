@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RestController;
 
-import pj1.dto.CartListDto;
+import io.swagger.v3.oas.annotations.Parameter;
+import pj1.dto.OrderItemDto;
+import pj1.service.MemberService;
 import pj1.service.OrderService;
 
 @RestController
@@ -20,16 +24,19 @@ public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
+	private MemberService memberService;
 	
 	
 	@RequestMapping(value="/insertOrder", method = RequestMethod.POST)
-	public void insertOrder(@RequestBody List<CartListDto> orderList ) throws Exception {
+	public int insertOrderInfo(@RequestBody List<OrderItemDto> orderInfo) throws Exception {
+		
+		OrderItemDto order = orderInfo.get(0);
 	
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>");
+		orderService.insertOrder(order);
 
-		System.out.println(orderList);
-
-		 orderService.insertOrder(orderList);
+		orderService.insertOrderDetail(orderInfo);
+	 
+		 return 1;
 		 
 	}
 		

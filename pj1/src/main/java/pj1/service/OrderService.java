@@ -2,8 +2,9 @@ package pj1.service;
 
 import java.util.List;
 
-import pj1.dto.CartListDto;
+import pj1.dto.OrderItemDto;
 
 public interface OrderService {
-	public List<CartListDto> insertOrder(List<CartListDto> orderList) throws Exception;
+	public int insertOrder(OrderItemDto orderInfo) throws Exception;
+	public int insertOrderDetail(List<OrderItemDto> orderInfo) throws Exception;
 }

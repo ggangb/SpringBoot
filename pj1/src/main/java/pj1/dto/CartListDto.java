@@ -14,5 +14,7 @@ public class CartListDto {
 	private String itemName;
 	private String itemPrice;
 	private String itemThumb;
+	private String address1;
+	private String address2;
 	
 }

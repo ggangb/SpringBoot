@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pj1.dto.CartListDto;
+import pj1.dto.OrderItemDto;
 import pj1.mapper.OrderMapper;
 
 @Service
@@ -15,9 +15,14 @@ public class OrderServiceImpl implements OrderService {
 	private OrderMapper orderMapper;
 	
 	@Override
-	public List<CartListDto> insertOrder(List<CartListDto> orderList) throws Exception {
+	public int insertOrder(OrderItemDto orderInfo) throws Exception {
 		
-		return orderMapper.insertOrder(orderList);
+		return orderMapper.insertOrder(orderInfo);
+	}
+
+	@Override
+	public int insertOrderDetail(List<OrderItemDto> orderInfo) throws Exception {
+		return orderMapper.insertOrderDetail(orderInfo);
 	}
 
 }

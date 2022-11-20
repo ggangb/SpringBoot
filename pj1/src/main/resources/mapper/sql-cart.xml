@@ -4,8 +4,8 @@
 
 	<insert id="insertCart" parameterType="pj1.dto.CartDto">
 		insert into
-		cart(mem_email, item_num, item_amount)
-		values(#{memEmail},#{itemNum},#{itemAmount});
+		cart(mem_email, item_num, item_amount, item_price)
+		values(#{memEmail},#{itemNum},#{itemAmount},#{itemPrice});
 	</insert>
 
 

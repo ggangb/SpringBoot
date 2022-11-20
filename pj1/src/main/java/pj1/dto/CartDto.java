@@ -8,4 +8,5 @@ public class CartDto {
 	private String memEmail;
 	private String itemNum;
 	private int itemAmount;
+	private int itemPrice;
 }

@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import pj1.dto.CartListDto;
+import pj1.dto.OrderItemDto;
 
 @Mapper
 public interface OrderMapper {
 	
-	List<CartListDto> insertOrder(List<CartListDto> orderList) throws Exception;
+	int insertOrder(OrderItemDto orderInfo) throws Exception;
+	int insertOrderDetail(List<OrderItemDto> orderInfo) throws Exception;
 
 }
