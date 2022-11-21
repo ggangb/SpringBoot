@@ -29,9 +29,9 @@ public class OrderlistController {
 	}
 	
 	@RequestMapping(value = "/mypage/myrefund/{memIdx}", method = RequestMethod.GET)
-	public List<OrderlistDto> showRefund(@PathVariable("memIdx") int memIdx) throws Exception{
+	public List<OrderlistDto> selectMyRefund(@PathVariable("memIdx") int memIdx) throws Exception{
 		
-		return orderlistService.selectRefund(memIdx);
+		return orderlistService.selectMyRefund(memIdx);
 	}
 	
 	@RequestMapping(value = "/mypage/myreview/able/{memIdx}", method = RequestMethod.GET)
@@ -84,11 +84,39 @@ public class OrderlistController {
 	@RequestMapping(value = "/mypage/myorderlist/purchase/{orderNum}", method = RequestMethod.POST)
 	public ResponseEntity<String> insertAbleReview(@PathVariable("orderNum") int orderNum, @RequestBody OrderlistDto orderlistDto) throws Exception {
 		int reviewIdx = orderlistService.insertAbleReview(orderlistDto);
+		System.out.println(reviewIdx);
 		if(reviewIdx > 0) {
 			return ResponseEntity.status(HttpStatus.OK).body("구매확정 성공");
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("구매확정 실패");
 		}
+		
+	}
+	
+	@RequestMapping(value = "/mypage/myorderlist/refundgo/{orderNum}", method = RequestMethod.PUT)
+	public void updateRefund(@PathVariable("orderNum") int orderNum) throws Exception {
+		orderlistService.updateRefund(orderNum);
+	}
+	
+	@RequestMapping(value = "/mypage/myorderlist/refundgo/{orderNum}", method = RequestMethod.POST)
+	public ResponseEntity<String> insertMyRefund(@PathVariable("orderNum") int orderNum, @RequestBody OrderlistDto orderlistDto) throws Exception {
+		int refundIdx = orderlistService.insertMyRefund(orderlistDto);
+		System.out.println(refundIdx);
+		if(refundIdx > 0) {
+			return ResponseEntity.status(HttpStatus.OK).body("반품접수 성공");
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("반품접수 실패");
+		}
+	}
+	
+	@RequestMapping(value = "/mypage/myrefund/refundcancel/{orderNum}", method = RequestMethod.PUT)
+	public void updateRefundCancel(@PathVariable("orderNum") int orderNum) throws Exception {
+		orderlistService.updateRefundCancel(orderNum);
+	}
+	
+	@RequestMapping(value = "/mypage/myrefund/removerefund/{refundIdx}", method = RequestMethod.PUT)
+	public void deleteRefund(@PathVariable("refundIdx") int refundIdx) throws Exception {
+		orderlistService.deleteRefund(refundIdx);
 	}
 	
 }

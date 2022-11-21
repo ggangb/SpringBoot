@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class OrderlistDto {
-	
-	//orderDto
+
+	// orderDto
 	private int orderNum;
 	private String orderStatus;
 	private String orderDate;
@@ -16,17 +16,16 @@ public class OrderlistDto {
 	private int memIdx;
 	private String memEmail;
 
-	//refundDto
-	private int refundAmount;
+	// refundDto
+	private int refundIdx;
 	private String refundReason;
 	private String refundDate;
 	private String refundStatus;
-	
-	//reviewDto
+
+	// reviewDto
 	private int reviewIdx;
 	private String reviewWriteYn;
 	private String reviewContents;
 	private String reviewWriteDate;
-	
-	
+
 }

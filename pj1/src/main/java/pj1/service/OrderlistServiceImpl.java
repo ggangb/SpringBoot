@@ -20,8 +20,8 @@ public class OrderlistServiceImpl implements OrderlistService {
 	}
 
 	@Override
-	public List<OrderlistDto> selectRefund(int memIdx) throws Exception {
-		return orderlistMapper.selectRefund(memIdx);
+	public List<OrderlistDto> selectMyRefund(int memIdx) throws Exception {
+		return orderlistMapper.selectMyRefund(memIdx);
 	}
 
 	@Override
@@ -73,6 +73,30 @@ public class OrderlistServiceImpl implements OrderlistService {
 	public int insertAbleReview(OrderlistDto orderlistDto) throws Exception {
 			orderlistMapper.insertAbleReview(orderlistDto);
 		return orderlistDto.getOrderNum();
+	}
+
+	@Override
+	public void updateRefund(int orderNum) throws Exception {
+		int count = orderlistMapper.updateRefund(orderNum);
+		System.out.println("xxxxxxxxxxxxxxxxx" + count);
+	}
+
+	@Override
+	public int insertMyRefund(OrderlistDto orderlistDto) throws Exception {
+			orderlistMapper.insertMyRefund(orderlistDto);
+		return orderlistDto.getOrderNum();
+	}
+
+	@Override
+	public void updateRefundCancel(int orderNum) throws Exception {
+		int count = orderlistMapper.updateRefundCancel(orderNum);
+		System.out.println("xxxxxxxxxxxxxxxxx" + count);
+	}
+
+	@Override
+	public void deleteRefund(int refundIdx) throws Exception {
+		int count = orderlistMapper.deleteRefund(refundIdx);
+		System.out.println("xxxxxxxxxxxxxxxxx" + count);
 	}
 
 }

@@ -10,7 +10,7 @@ import pj1.dto.OrderlistDto;
 public interface OrderlistMapper {
 
 	List<OrderlistDto> selectOrderlist(int memIdx) throws Exception;
-	List<OrderlistDto> selectRefund(int memIdx) throws Exception;
+	List<OrderlistDto> selectMyRefund(int memIdx) throws Exception;
 	List<OrderlistDto> selectAbleReview(int memIdx) throws Exception;
 	int insertReview(OrderlistDto orderlistDto) throws Exception;
 	List<OrderlistDto> selectDidReview(int memIdx) throws Exception;
@@ -20,5 +20,9 @@ public interface OrderlistMapper {
 	int orderCancelPlz(int orderNum) throws Exception;
 	int itemPurchase(int orderNum) throws Exception;
 	int insertAbleReview(OrderlistDto orderlistDto) throws Exception;
+	int updateRefund(int orderNum) throws Exception;
+	int insertMyRefund(OrderlistDto orderlistDto) throws Exception;
+	int updateRefundCancel(int orderNum) throws Exception;
+	int deleteRefund(int refundIdx) throws Exception;
 	
 }
