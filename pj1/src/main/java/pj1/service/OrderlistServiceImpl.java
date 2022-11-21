@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pj1.dto.OrderItemDto;
 import pj1.dto.OrderlistDto;
 import pj1.mapper.OrderlistMapper;
 
@@ -52,7 +53,7 @@ public class OrderlistServiceImpl implements OrderlistService {
 	}
 
 	@Override
-	public void orderCancelNow(int orderNum) throws Exception {
+	public void orderCancelNow(String orderNum) throws Exception {
 		int count = orderlistMapper.orderCancelNow(orderNum);
 		System.out.println("xxxxxxxxxxxxxxxxx" + count);
 	}
@@ -72,7 +73,42 @@ public class OrderlistServiceImpl implements OrderlistService {
 	@Override
 	public int insertAbleReview(OrderlistDto orderlistDto) throws Exception {
 			orderlistMapper.insertAbleReview(orderlistDto);
-		return orderlistDto.getOrderNum();
+		return 1;
+	}
+
+	@Override
+	public int orderDelete(String orderNum) throws Exception {
+		
+		return orderlistMapper.orderDelete(orderNum);
+	}
+
+	@Override
+	public int orderListDelete(String orderNum) throws Exception {
+		
+		return orderlistMapper.orderListDelete(orderNum);
+	}
+
+	
+	
+//admin
+	@Override
+	public int orderState(String orderNum) throws Exception {
+		return orderlistMapper.orderState(orderNum);
+	}
+
+	@Override
+	public int orderStateDelivery(String orderNum) throws Exception {
+		return orderlistMapper.orderStateDelivery(orderNum);
+	}
+
+	@Override
+	public int orderStateComple(String orderNum) throws Exception {
+		return orderlistMapper.orderStateComle(orderNum);
+	}
+
+	@Override
+	public List<OrderItemDto> selectAllOrderlist() throws Exception {
+		return orderlistMapper.selectAllOrderlist();
 	}
 
 }

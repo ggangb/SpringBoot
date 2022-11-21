@@ -3,18 +3,16 @@
 <mapper namespace="pj1.mapper.OrderMapper">
 
 	<insert id="insertOrder" parameterType="pj1.dto.OrderItemDto">
-		insert into ordereditem (mem_email,address1,address2,order_date) 
-			values (#{memEmail},#{address1},#{address2},now());
+		insert into ordereditem (order_num,mem_email,address1,address2,address3) 
+			values (#{orderNum},#{memEmail},#{address1},#{address2},#{address3});
 	</insert>
 	
 	<insert id="insertOrderDetail" parameterType="pj1.dto.OrderItemDto">
-		insert into orderdetail (order_num,item_num , item_amount, item_price, order_detail_status
-			) 
-			values (
-			<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
-			#{orderNum},#{itemNum},#{itemAmount}, #{itemPrice}, '주문완료'
+		insert into orderlist (order_num ,mem_idx,mem_email,item_name ,item_num , item_amount , item_price,item_thumb) 
+			values 
+			<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.orderNum},#{item.memIdx},#{item.memEmail},#{item.itemName},#{item.itemNum},#{item.itemAmount},#{item.itemPrice},#{item.itemThumb})
 			</foreach>
-			);
 	</insert>
 	
 	<insert id="insertPaymentOrder" parameterType="pj1.dto.PaymentOrderDateDto">

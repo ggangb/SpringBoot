@@ -6,7 +6,7 @@ import lombok.Data;
 public class OrderlistDto {
 	
 	//orderDto
-	private int orderNum;
+	private String orderNum;
 	private String orderStatus;
 	private String orderDate;
 	private int itemNum;
@@ -15,6 +15,7 @@ public class OrderlistDto {
 	private int itemPrice;
 	private int memIdx;
 	private String memEmail;
+	private String itemThumb;
 
 	//refundDto
 	private int refundAmount;

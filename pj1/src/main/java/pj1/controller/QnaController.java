@@ -34,7 +34,7 @@ public class QnaController {
 	}
 	
 	@ApiOperation(value = "Qna 상세 조회", notes = "Qna 상세 조회")
-	@RequestMapping(value = "/qna/{qnaIdx}", method = RequestMethod.GET)
+	@RequestMapping(value = "/qnadetail/{qnaIdx}", method = RequestMethod.GET)
 	public ResponseEntity<QnaDto> openQnaDetail(
 			@Parameter(description = "Qna 번호", required = true, example = "1") @PathVariable("qnaIdx") int qnaIdx) throws Exception {
 		QnaDto qnaDto = qnaService.selectQnaDetail(qnaIdx);

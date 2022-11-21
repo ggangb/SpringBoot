@@ -5,9 +5,14 @@
 
 	<select id="selectOrderlist" parameterType="int" resultType="pj1.dto.OrderlistDto">
 		select mem_idx, order_num, item_num, item_amount, item_name, item_price, order_status,
-		date_format(order_date, '%Y.%m.%d') as order_date
+		date_format(order_date, '%Y.%m.%d') as order_date,item_thumb
 		from orderlist where mem_idx=#{memIdx} and refund_yn = 'N' order by order_date desc
+	</select>
 	
+	<select id="selectAllOrderlist" resultType="pj1.dto.OrderlistDto">
+		select mem_idx, order_num, item_num, item_amount, item_name, item_price, order_status,
+		date_format(order_date, '%Y.%m.%d') as order_date,item_thumb
+		from orderlist 
 	</select>
 	
 	<select id="selectRefund" parameterType="int" resultType="pj1.dto.OrderlistDto">
@@ -39,16 +44,36 @@
 		update review set review_contents = #{reviewContents}, review_updateDate = now() where review_idx = #{reviewIdx}
 	</update>
 	
-	<update id="orderCancelNow" parameterType="int" >
-		update orderlist set order_status = '취소완료' where order_Num = #{orderNum}
+	<update id="orderCancelNow" parameterType="String" >
+		update orderlist set order_status = '취소완료' where order_num = #{orderNum}
 	</update>
 	
+	<delete id="orderListDelete" parameterType="String">
+		delete from orderlist WHERE order_num = #{orderNum};
+	</delete> 
+	<delete id="orderDelete" parameterType="String">
+		delete from ordereditem where order_num = #{orderNum};
+	</delete>
+	
+	<update id="orderState" parameterType="String">
+		update orderlist set order_status = "상품준비중" where order_num = #{orderNum}
+	</update>
+	
+	<update id="orderStateDelivery" parameterType="String">
+		update orderlist set order_status = "배송중" where order_num = #{orderNum}
+	</update>
+	
+	<update id="orderStateComple" parameterType="String">
+		update orderlist set order_status = "배송완료" where order_num = #{orderNum}
+	</update>
+	
+	
 	<update id="orderCancelPlz" parameterType="int" >
-		update orderlist set order_status = '취소처리중' where order_Num = #{orderNum}
+		update orderlist set order_status = '취소처리중' where order_num = #{orderNum}
 	</update>
 	
 	<update id="itemPurchase" parameterType="int" >
-		update orderlist set order_status = '구매확정' where order_Num = #{orderNum}
+		update orderlist set order_status = '구매확정' where order_num = #{orderNum}
 	</update>
 	
 	<insert id="insertAbleReview" parameterType="pj1.dto.OrderlistDto">

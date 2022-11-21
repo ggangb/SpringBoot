@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import pj1.dto.OrderItemDto;
 import pj1.dto.OrderlistDto;
 import pj1.service.OrderlistService;
 
@@ -67,8 +68,14 @@ public class OrderlistController {
 	}
 	
 	@RequestMapping(value = "/mypage/myorderlist/now/{orderNum}", method = RequestMethod.PUT)
-	public void orderCancelNow(@PathVariable("orderNum") int orderNum) throws Exception {
+	public void orderCancelNow(@PathVariable("orderNum") String orderNum) throws Exception {
 		orderlistService.orderCancelNow(orderNum);
+	}
+	
+	@RequestMapping(value = "/mypage/myorderlist/delete/{orderNum}", method = RequestMethod.PUT)
+	public void orderDelete(@PathVariable("orderNum") String orderNum) throws Exception {
+		orderlistService.orderDelete(orderNum);
+		orderlistService.orderListDelete(orderNum);
 	}
 	
 	@RequestMapping(value = "/mypage/myorderlist/plz/{orderNum}", method = RequestMethod.PUT)
@@ -80,7 +87,6 @@ public class OrderlistController {
 	public void itemPurchase(@PathVariable("orderNum") int orderNum) throws Exception {
 		orderlistService.itemPurchase(orderNum);
 	}
-	
 	@RequestMapping(value = "/mypage/myorderlist/purchase/{orderNum}", method = RequestMethod.POST)
 	public ResponseEntity<String> insertAbleReview(@PathVariable("orderNum") int orderNum, @RequestBody OrderlistDto orderlistDto) throws Exception {
 		int reviewIdx = orderlistService.insertAbleReview(orderlistDto);
@@ -90,5 +96,32 @@ public class OrderlistController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("구매확정 실패");
 		}
 	}
+	
+	
+	
+	//admin
+	@RequestMapping(value = "/mypage/myorderlist/state/{orderNum}", method = RequestMethod.PUT)
+	public void orderState(@PathVariable("orderNum") String orderNum) throws Exception {
+		orderlistService.orderState(orderNum);
+	}
+	@RequestMapping(value = "/mypage/myorderlist/stateDelivery/{orderNum}", method = RequestMethod.PUT)
+	public void orderStateDelivery(@PathVariable("orderNum") String orderNum) throws Exception {
+		orderlistService.orderStateDelivery(orderNum);
+	}
+	
+	@RequestMapping(value = "/mypage/myorderlist/stateComple/{orderNum}", method = RequestMethod.PUT)
+	public void orderStateComle(@PathVariable("orderNum") String orderNum) throws Exception {
+		orderlistService.orderStateComple(orderNum);
+	}
+	
+	@RequestMapping(value = "/admin/order", method = RequestMethod.GET)
+	public List<OrderItemDto> adminOrderlist() throws Exception{
+		return orderlistService.selectAllOrderlist();
+	}
+	
+	
+	
+	
+	
 	
 }

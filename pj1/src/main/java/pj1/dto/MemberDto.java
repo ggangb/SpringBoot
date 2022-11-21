@@ -16,6 +16,7 @@ public class MemberDto {
 	private String memPostNum;
 	private String memAddr1;
 	private String memAddr2;
+	private String postNum;
 	private String memRegDate;
 	private String memUpdateDate;
 	private String memDeletedYn;

@@ -11,13 +11,16 @@ public class OrderItemDto {
 	private String memEmail;
 	private String address1;
 	private String address2;
+	private String address3;
+	private String memIdx;
 	private String memPhone;
-	private int totalPrice;
-	private int orderNum;
+	private int itemPrice;
+	private String orderNum;
 	private String itemNum;
 	private String itemName;
 	private int itemAmount;
 	private String orderStatus;
-	
+	private int cartIdx;
+	private String itemThumb;
 	
 }
