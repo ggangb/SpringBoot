@@ -13,6 +13,7 @@
 	<select id="selectDetailMember" parameterType="String"  resultType="pj1.dto.MemberDto">
 	select * from member where mem_deleted_yn = 'N' and mem_email = #{memEmail}
 	</select>
+	
 	<select id="validateMemberEmail" parameterType="String"
 		resultType="pj1.dto.MemberDto">
 		select mem_email from member
@@ -61,11 +62,11 @@
 	
 	<select id="selectMemberDetail" parameterType="int"
 		resultType="pj1.dto.MemberDto">
-		select mem_Idx, mem_role, mem_email, mem_name, mem_birth, mem_phone,
+		select mem_idx, mem_role, mem_email, mem_name, mem_birth, mem_phone,
 		mem_postnum, mem_pw,
 		mem_addr1, mem_addr2, date_format(mem_regDate, '%Y.%m.%d
 		%H:%i:%s')
-		as mem_regDate from member where mem_deleted_yn = 'N' and mem_idx=#{memIdx};
+		as mem_regDate from member where mem_idx=#{memIdx};
 	</select>
 
 	<update id="updateMemberInfo"
