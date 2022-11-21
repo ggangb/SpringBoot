@@ -7,6 +7,7 @@ public class OrderlistDto {
 	
 	//orderDto
 	private String orderNum;
+	private int orderlistIdx;
 	private String orderStatus;
 	private String orderDate;
 	private int itemNum;

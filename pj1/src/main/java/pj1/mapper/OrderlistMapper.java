@@ -27,7 +27,7 @@ public interface OrderlistMapper {
 	
 	//admin
 	int orderDelete(String orderNum) throws Exception;
-	int orderState(String orderNum) throws Exception;
+	int orderState(int orderlistIdx) throws Exception;
 	int orderStateDelivery(String orderNum) throws Exception;
 	int orderStateComle(String orderNum) throws Exception;
 	

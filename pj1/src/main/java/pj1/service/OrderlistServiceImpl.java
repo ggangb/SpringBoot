@@ -92,8 +92,8 @@ public class OrderlistServiceImpl implements OrderlistService {
 	
 //admin
 	@Override
-	public int orderState(String orderNum) throws Exception {
-		return orderlistMapper.orderState(orderNum);
+	public int orderState(int orderlistIdx) throws Exception {
+		return orderlistMapper.orderState(orderlistIdx);
 	}
 
 	@Override

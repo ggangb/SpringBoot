@@ -100,9 +100,10 @@ public class OrderlistController {
 	
 	
 	//admin
-	@RequestMapping(value = "/mypage/myorderlist/state/{orderNum}", method = RequestMethod.PUT)
-	public void orderState(@PathVariable("orderNum") String orderNum) throws Exception {
-		orderlistService.orderState(orderNum);
+	@RequestMapping(value = "/admin/order/{orderlistIdx}", method = RequestMethod.POST)
+	public void orderState(@PathVariable("orderlistIdx") int orderlistIdx) throws Exception {
+		orderlistService.orderState(orderlistIdx);
+//		System.out.println(orderlistIdx);
 	}
 	@RequestMapping(value = "/mypage/myorderlist/stateDelivery/{orderNum}", method = RequestMethod.PUT)
 	public void orderStateDelivery(@PathVariable("orderNum") String orderNum) throws Exception {

@@ -23,7 +23,7 @@ public interface OrderlistService {
 	public int orderListDelete(String orderNum) throws Exception;
 	
 	//admin
-	public int orderState(String orderNum) throws Exception;
+	public int orderState(int orderlistIdx) throws Exception;
 	public int orderStateDelivery(String orderNum) throws Exception;
 	public int orderStateComple(String orderNum) throws Exception;
 	
