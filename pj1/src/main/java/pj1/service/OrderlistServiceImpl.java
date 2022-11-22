@@ -53,20 +53,20 @@ public class OrderlistServiceImpl implements OrderlistService {
 	}
 
 	@Override
-	public void orderCancelNow(String orderNum) throws Exception {
-		int count = orderlistMapper.orderCancelNow(orderNum);
+	public void orderCancelNow(int orderlistIdx) throws Exception {
+		int count = orderlistMapper.orderCancelNow(orderlistIdx);
 		System.out.println("xxxxxxxxxxxxxxxxx" + count);
 	}
 	
 	@Override
-	public void orderCancelPlz(int orderNum) throws Exception {
-		int count = orderlistMapper.orderCancelPlz(orderNum);
+	public void orderCancelPlz(int orderlistIdx) throws Exception {
+		int count = orderlistMapper.orderCancelPlz(orderlistIdx);
 		System.out.println("xxxxxxxxxxxxxxxxx" + count);
 	}
 
 	@Override
-	public void itemPurchase(int orderNum) throws Exception {
-		int count = orderlistMapper.itemPurchase(orderNum);
+	public void itemPurchase(int orderlistIdx) throws Exception {
+		int count = orderlistMapper.itemPurchase(orderlistIdx);
 		System.out.println("xxxxxxxxxxxxxxxxx" + count);
 	}
 
@@ -89,6 +89,32 @@ public class OrderlistServiceImpl implements OrderlistService {
 	}
 
 	
+	@Override
+	public void updateRefund(int orderNum) throws Exception {
+		int count = orderlistMapper.updateRefund(orderNum);
+		System.out.println("xxxxxxxxxxxxxxxxx" + count);
+	}
+
+	@Override
+	public String insertMyRefund(OrderlistDto orderlistDto) throws Exception {
+			orderlistMapper.insertMyRefund(orderlistDto);
+		return orderlistDto.getOrderNum();
+	}
+
+	@Override
+	public void updateRefundCancel(int orderNum) throws Exception {
+		int count = orderlistMapper.updateRefundCancel(orderNum);
+		System.out.println("xxxxxxxxxxxxxxxxx" + count);
+	}
+
+	@Override
+	public void deleteRefund(int refundIdx) throws Exception {
+		int count = orderlistMapper.deleteRefund(refundIdx);
+		System.out.println("xxxxxxxxxxxxxxxxx" + count);
+	}
+	
+	
+	
 	
 //admin
 	@Override
@@ -97,13 +123,13 @@ public class OrderlistServiceImpl implements OrderlistService {
 	}
 
 	@Override
-	public int orderStateDelivery(String orderNum) throws Exception {
-		return orderlistMapper.orderStateDelivery(orderNum);
+	public int orderStateDelivery(int orderlistIdx) throws Exception {
+		return orderlistMapper.orderStateDelivery(orderlistIdx);
 	}
 
 	@Override
-	public int orderStateComple(String orderNum) throws Exception {
-		return orderlistMapper.orderStateComle(orderNum);
+	public int orderStateComple(int orderlistIdx) throws Exception {
+		return orderlistMapper.orderStateComple(orderlistIdx);
 	}
 
 	@Override

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pj1.mapper.AdminMapper">
+
+	<select id = "selectAllReview" resultType="pj1.dto.AdminDto">
+		select * from review
+	</select>
+	
+	<delete id = "deleteReview" parameterType="int">
+		update review set review_delete_yn = 'Y' where review_idx = #{reviewIdx}
+	</delete>
+
+	<delete id = "showReview" parameterType="int">
+		update review set review_delete_yn = 'N' where review_idx = #{reviewIdx}
+	</delete>
+	
+</mapper>

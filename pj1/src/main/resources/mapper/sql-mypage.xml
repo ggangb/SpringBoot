@@ -5,8 +5,8 @@
 
 	<select id="selectOrderlist" parameterType="int" resultType="pj1.dto.OrderlistDto">
 		select mem_idx, order_num, item_num, item_amount, item_name, item_price, order_status,
-		date_format(order_date, '%Y.%m.%d') as order_date,item_thumb
-		from orderlist where mem_idx=#{memIdx} and refund_yn = 'N' order by order_date desc
+		date_format(order_date, '%Y.%m.%d') as order_date,item_thumb,orderlist_idx
+		from orderlist where mem_idx=#{memIdx} and refund_yn = 'N' order by orderlist_idx desc
 	</select>
 	
 	
@@ -17,30 +17,36 @@
 	</select>
 
 	<select id="selectAbleReview" parameterType="int" resultType="pj1.dto.OrderlistDto">
-		select r.review_idx, o.item_name, o.mem_idx, o.order_num, r.item_num, r.review_write_yn, 
+		select r.review_idx, o.orderlist_idx, o.item_name, o.mem_idx, o.order_num, o.item_thumb, r.item_num, r.review_write_yn, 
 		r.review_contents, date_format(o.order_date, '%Y.%m.%d') as order_date ,date_format(r.review_writeDate, '%Y.%m.%d') as review_writeDate 
 		from review r left join orderlist o on r.order_num = o.order_num 
 		where r.mem_idx =#{memIdx} and o.refund_yn = 'N' and r.review_write_yn = 'N' and o.order_status = '구매확정' order by order_date desc
 	</select>
 	
 	<update id="insertReview" parameterType="pj1.dto.OrderlistDto" >
-		update review set review_contents = #{reviewContents}, review_write_yn = 'Y', review_writeDate = now() where order_Num = #{orderNum}
+		update review set review_contents = #{reviewContents}, review_write_yn = 'Y', review_writeDate = now() where orderlist_idx = #{orderlistIdx}
 	</update>
 	
 	<select id="selectDidReview" parameterType="int" resultType="pj1.dto.OrderlistDto">
-		select review_idx, review_contents, date_format(review_writeDate, '%Y.%m.%d') as review_writeDate from review where review_write_yn = 'Y' order by review_idx desc
+		select r.review_idx, o.orderlist_idx, o.item_thumb, r.review_contents, date_format(review_writeDate, '%Y.%m.%d') as review_writeDate from review r 
+		left join orderlist o on r.orderlist_idx = o.orderlist_idx 
+		where review_write_yn = 'Y' order by review_idx desc;
 	</select>
 	
 	<select id="selectReviewDetail" parameterType="int" resultType="pj1.dto.OrderlistDto">
-		select review_idx, item_num, item_name review_contents from review where review_idx = #{reviewIdx}
+		select review_idx, item_num , item_name,review_contents from review where review_idx = #{reviewIdx}
 	</select>
 
 	<update id="updateReview" parameterType="pj1.dto.OrderlistDto" >
 		update review set review_contents = #{reviewContents}, review_updateDate = now() where review_idx = #{reviewIdx}
 	</update>
 	
-	<update id="orderCancelNow" parameterType="String" >
-		update orderlist set order_status = '취소완료' where order_num = #{orderNum}
+	<update id="orderCancelNow" parameterType="int" >
+		update orderlist set order_status = '취소완료' where orderlist_idx = #{orderlistIdx}
+	</update>
+	
+	<update id="orderCancelPlz" parameterType="int" >
+		update orderlist set order_status = '취소처리중' where orderlist_idx = #{orderlistIdx}
 	</update>
 	
 	<delete id="orderListDelete" parameterType="String">
@@ -51,21 +57,14 @@
 	</delete>
 	
 	
-	<update id="orderCancelPlz" parameterType="int" >
-		update orderlist set order_status = '취소처리중' where order_num = #{orderNum}
-	</update>
-	
 	<update id="itemPurchase" parameterType="int" >
-		update orderlist set order_status = '구매확정' where order_num = #{orderNum}
+		update orderlist set order_status = '구매확정' where orderlist_Idx = #{orderlistIdx}
 	</update>
 	
 	<insert id="insertAbleReview" parameterType="pj1.dto.OrderlistDto">
-		insert into review(mem_idx, item_num, item_name, order_num) values(#{memIdx}, #{itemNum}, #{itemName}, #{orderNum})
+		insert into review(mem_idx, item_num, item_name, order_num, orderlist_idx) values(#{memIdx}, #{itemNum}, #{itemName}, #{orderNum}, #{orderlistIdx})
 	</insert>
-	
-	
-	
-	
+		
 	
 	<select id="selectAllOrderlist" resultType="pj1.dto.OrderlistDto">
 		select orderlist_idx,mem_idx, order_num, item_num, item_amount, item_name, item_price, order_status,
@@ -73,17 +72,37 @@
 		from orderlist 
 	</select>
 	
+		<update id="updateRefund" parameterType="String" >
+		update orderlist set refund_yn = 'Y' where order_Num = #{orderNum}
+	</update>
+	
+	<insert id="insertMyRefund" parameterType="pj1.dto.OrderlistDto">
+		insert into refund(mem_idx, order_num, item_name, refund_reason, item_price) 
+		values(#{memIdx}, #{orderNum}, #{itemName}, #{refundReason}, #{itemPrice})
+	</insert>
+	
+	<update id="updateRefundCancel" parameterType="String" >
+		update orderlist set refund_yn = 'N' where order_Num = #{orderNum}
+	</update>
+	
+	<update id="deleteRefund" parameterType="int">
+		update refund set refund_status = '반품취소' where refund_idx = #{refundIdx}
+	</update>
+	
+	
+	
+	
 	
 	<update id="orderState" parameterType="int">
 		update orderlist set order_status = "상품준비중" where orderlist_idx = #{orderlist_idx}
 	</update>
 	
-	<update id="orderStateDelivery" parameterType="String">
-		update orderlist set order_status = "배송중" where order_num = #{orderNum}
+	<update id="orderStateDelivery" parameterType="int">
+		update orderlist set order_status = "배송중" where orderlist_idx = #{orderlist_idx}
 	</update>
 	
-	<update id="orderStateComple" parameterType="String">
-		update orderlist set order_status = "배송완료" where order_num = #{orderNum}
+	<update id="orderStateComple" parameterType="int">
+		update orderlist set order_status = "배송완료" where orderlist_idx = #{orderlist_idx}
 	</update>
 	
 	

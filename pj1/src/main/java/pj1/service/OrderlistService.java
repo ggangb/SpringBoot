@@ -15,16 +15,22 @@ public interface OrderlistService {
 	public List<OrderlistDto> selectDidReview(int memIdx) throws Exception;
 	public OrderlistDto selectReviewDetail(int reviewIdx) throws Exception;
 	public void updateReview(OrderlistDto orderlistDto) throws Exception;
-	public void orderCancelNow(String orderNum) throws Exception;
-	public void orderCancelPlz(int orderNum) throws Exception;
-	public void itemPurchase(int orderNum) throws Exception;
+	public void orderCancelNow(int orderlistIdx) throws Exception;
+	public void orderCancelPlz(int orderlistIdx) throws Exception;
+	public void itemPurchase(int orderlistIdx) throws Exception;
 	public int insertAbleReview(OrderlistDto orderlistDto) throws Exception;
 	public int orderDelete(String orderNum) throws Exception;
 	public int orderListDelete(String orderNum) throws Exception;
 	
+	public void updateRefund(int orderNum) throws Exception;
+	public String insertMyRefund(OrderlistDto orderlistDto) throws Exception;
+	public void updateRefundCancel(int orderNum) throws Exception;
+	public void deleteRefund(int refundIdx) throws Exception;
+	
+	
 	//admin
 	public int orderState(int orderlistIdx) throws Exception;
-	public int orderStateDelivery(String orderNum) throws Exception;
-	public int orderStateComple(String orderNum) throws Exception;
+	public int orderStateDelivery(int orderlistIdx) throws Exception;
+	public int orderStateComple(int orderlistIdx) throws Exception;
 	
 }

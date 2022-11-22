@@ -62,7 +62,7 @@
 	
 	<select id="selectMemberDetail" parameterType="int"
 		resultType="pj1.dto.MemberDto">
-		select mem_idx, mem_role, mem_email, mem_name, mem_birth, mem_phone,
+		select mem_idx, role, mem_email, mem_name, mem_birth, mem_phone,
 		mem_postnum, mem_pw,
 		mem_addr1, mem_addr2, date_format(mem_regDate, '%Y.%m.%d
 		%H:%i:%s')

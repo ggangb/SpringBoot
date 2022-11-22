@@ -1,8 +1,10 @@
 package pj1.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -124,19 +126,27 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.findPassword(memEmail, memName, memPhone);
 	}
 	
-//	@Override
-//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		MemberDto memberDto = memberMapper.findByMemberEmail(username);
-//		if (memberDto ==null) {
-//			throw new UsernameNotFoundException(username);
-//		}
-//		// String username, String password, boolean enabled, boolean accountNonExpired,
-//				// boolean credentialsNonExpired, boolean accountNonLocked,
-//				// Collection<? extends GrantedAuthority> authorities
-//				return new User(memberDto.getMemEmail(), memberDto.getMemPw(), 
-//						true, true, true, true, new ArrayList<>());
-//		
-//	}
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		MemberDto memberDto = memberMapper.findByMemberEmail(username);
+		if (memberDto ==null) {
+			throw new UsernameNotFoundException(username);
+		}
+		// String username, String password, boolean enabled, boolean accountNonExpired,
+				// boolean credentialsNonExpired, boolean accountNonLocked,
+				// Collection<? extends GrantedAuthority> authorities
+				return new User(memberDto.getMemEmail(), memberDto.getMemPw(), 
+						true, true, true, true, new ArrayList<>());
+	}
+	
+	@Override
+	public MemberDto getMemberDetailByEmail(String username) {
+		MemberDto memberDto = memberMapper.findByMemberEmail(username);
+		if (memberDto == null) {
+			throw new UsernameNotFoundException(username);
+		}
+		return memberDto;
+	}
 
 
 	

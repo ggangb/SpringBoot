@@ -18,18 +18,26 @@ public interface OrderlistMapper {
 	List<OrderlistDto> selectDidReview(int memIdx) throws Exception;
 	OrderlistDto selectReviewDetail(int reviewIdx) throws Exception;
 	int updateReview(OrderlistDto orderlistDto) throws Exception;
-	int orderCancelNow(String orderNum) throws Exception;
-	int orderCancelPlz(int orderNum) throws Exception;
-	int itemPurchase(int orderNum) throws Exception;
+	int orderCancelNow(int orderlistIdx) throws Exception;
+	int orderCancelPlz(int orderlistIdx) throws Exception;
+	int itemPurchase(int orderlistIdx) throws Exception;
 	int insertAbleReview(OrderlistDto orderlistDto) throws Exception;
-	
 	int orderListDelete(String orderNum) throws Exception;
+	
+	int updateRefund(int orderNum) throws Exception;
+	String insertMyRefund(OrderlistDto orderlistDto) throws Exception;
+	int updateRefundCancel(int orderNum) throws Exception;
+	int deleteRefund(int refundIdx) throws Exception;
+	
+
+	
+	
 	
 	//admin
 	int orderDelete(String orderNum) throws Exception;
 	int orderState(int orderlistIdx) throws Exception;
-	int orderStateDelivery(String orderNum) throws Exception;
-	int orderStateComle(String orderNum) throws Exception;
+	int orderStateDelivery(int orderlistIdx) throws Exception;
+	int orderStateComple(int orderlistIdx) throws Exception;
 	
 	
 }
