@@ -1,5 +1,7 @@
 package pj1.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,10 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	
+
+	
+	
 	@RequestMapping(value = "/member/myinfo/{memIdx}", method = RequestMethod.GET)
 	public ResponseEntity<MemberDto> openMemberDetail(@PathVariable("memIdx") int memIdx) throws Exception {
 		MemberDto memberDto = memberService.selectMemberDetail(memIdx);
@@ -28,6 +34,17 @@ public class MemberController {
 			return ResponseEntity.ok(memberDto);
 		}
 	}
+	
+	@RequestMapping(value = "/admin_mem/{memIdx}", method=RequestMethod.GET)
+	public ResponseEntity<MemberDto> selectMemberDetail(@PathVariable("memIdx")int memIdx) throws Exception{
+		MemberDto memberDto = memberService.selectMemberDetail(memIdx);
+		if(memberDto == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}else {
+			return ResponseEntity.ok(memberDto);
+		}
+	}
+	
 
 	@RequestMapping(value = "/member/updateinfo/{memIdx}", method = RequestMethod.PUT)
 	public void updateMemberInfo(@PathVariable("memIdx") int memIdx, @RequestBody MemberDto memberDto) throws Exception{
@@ -53,6 +70,25 @@ public class MemberController {
 	@RequestMapping(value = "/member/delete/{memIdx}", method = RequestMethod.DELETE)
 	public void deleteMemberInfo(@PathVariable("memIdx") int memIdx) throws Exception {
 		memberService.deleteMemberInfo(memIdx);
+	}
+	
+	
+	@RequestMapping(value = "/admin_mem", method = RequestMethod.GET)
+	public List<MemberDto> openMemberList() throws Exception {
+		return memberService.selectMemberList();
+	}
+	
+
+	
+	@RequestMapping(value = "/admin_mem/{memIdx}", method=RequestMethod.PUT)
+	public void adminmemupdate(@PathVariable("memIdx") int memIdx, @RequestBody MemberDto memberDto) throws Exception{
+		memberDto.setMemIdx(memIdx);
+		memberService.adminmemupdate(memberDto);
+	}
+	
+	@RequestMapping(value = "/admin_mem/{memIdx}", method=RequestMethod.DELETE)
+	public void ydeleteMember(@PathVariable("memIdx") int memIdx) throws Exception{
+		memberService.ydeleteMember(memIdx); 
 	}
 	
 }
