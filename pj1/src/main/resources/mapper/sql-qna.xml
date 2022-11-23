@@ -25,8 +25,7 @@
 		where q.qna_idx = #{qnaIdx}
 	</select>
 	
-	<select id="selectQnaDetail" parameterType="int"
-		resultType="pj1.dto.QnaDto">
+	<select id="selectQnaDetail" parameterType="int" resultType="pj1.dto.QnaDto">
 		select qna_idx, qna_contents, mem_email,
 		date_format(qna_writeDate, '%m.%d %H:%i') as
 		qna_writeDate,qna_comment_content
@@ -38,25 +37,22 @@
 	
 	<select id="selectAllQnaList" resultType="pj1.dto.QnaDto">
 	select *
-	from qna
+	from qna;
 	</select>
 	<insert id="insertQna" parameterType="pj1.dto.QnaDto">
 		insert into qna
-		(mem_email,qna_title, qna_contents, qna_writeDate)
+		(item_num,mem_email,qna_title, qna_contents, qna_writeDate)
 		values (
+		#{itemNum},
 		#{memEmail},
 		#{qnaTitle},
 		#{qnaContents}, now()
 		)
 	</insert>
 
-	<insert id="insertQnaComment" parameterType="pj1.dto.QnaDto">
-		insert into qna_comment
-		(mem_email,item_num,qna_title, qna_contents,
-		qna_comment_writeDate)
-		values (#{memEmail},#{itemNum},#{qnaTitle},#{qnaContents}#{qnaCommentContent}, now()
-		)
-	</insert>
+	<update id="insertQnaComment" parameterType="pj1.dto.QnaDto">
+		update qna set qna_comment_content = #{qnaCommentContent}, qna_comment_writeDate = now(), qna_ans = 'Y' where qna_idx = #{qnaIdx}
+	</update>
 	
 
 	<delete id="deleteQna" parameterType="int">

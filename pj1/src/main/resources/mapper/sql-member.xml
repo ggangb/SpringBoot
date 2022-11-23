@@ -5,7 +5,7 @@
 	<select id="selectMemberList" resultType="pj1.dto.MemberDto">
 		select
 		mem_idx,mem_Name, mem_email, date_format(mem_regDate, '%Y.%m.%d')
-		as
+		as mem_phone, mem_addr1, mem_addr2,
 		mem_regDate,mem_deleted_yn from member order by mem_idx desc
 
 	</select>

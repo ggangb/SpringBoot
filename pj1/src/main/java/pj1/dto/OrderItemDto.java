@@ -22,5 +22,7 @@ public class OrderItemDto {
 	private String orderStatus;
 	private int cartIdx;
 	private String itemThumb;
+	private String recipient;
+	private String recipientPhone;
 	
 }

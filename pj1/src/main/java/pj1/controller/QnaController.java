@@ -7,13 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import pj1.dto.QnaDto;
 import pj1.dto.ReviewDto;
 import pj1.service.QnaService;
@@ -37,6 +37,7 @@ public class QnaController {
 	@RequestMapping(value = "/qna/contents/{qnaIdx}", method = RequestMethod.GET)
 	public ResponseEntity<QnaDto> openQnaDetail(
 			@Parameter(description = "Qna 번호", required = true, example = "1") @PathVariable("qnaIdx") int qnaIdx) throws Exception {
+		
 		QnaDto qnaDto = qnaService.selectQnaDetail(qnaIdx);
 		if (qnaDto == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -65,14 +66,14 @@ public class QnaController {
 		
 	@ApiOperation(value = "Qna 등록", notes = "Qna 제목과 내용을 저장")
 	@RequestMapping(value = "/qnaWrite", method = RequestMethod.POST)
-	public void insertQnaComment(@RequestBody QnaDto qnaDto) throws Exception {
-		
-		System.out.println(qnaDto);
-//		qnaService.insertQna(qnaDto);
+	public ResponseEntity<Object> insertQnaComment(@RequestBody QnaDto qnaDto) throws Exception {
+//		System.out.println(qnaDto);
+		qnaService.insertQna(qnaDto);
+		return null;
 	}
 	
 	@ApiOperation(value = "Qna 답변 등록", notes = "Qna 답변 내용을 저장")
-	@RequestMapping(value = "/admin/qnaWrite/{qnaIdx}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/qnaWrite", method = RequestMethod.POST)
 	public void insertQna(
 			@Parameter(description = "Qna 답변 등록", required = true, example = "{ contents: 내용 }") @RequestBody QnaDto qna)
 			throws Exception {
