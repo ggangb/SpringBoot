@@ -14,7 +14,7 @@ public interface QnaService {
 
 	public QnaDto selectQnaAnswer(int qnaIdx) throws Exception;
 
-	public void insertQna(QnaDto qna) throws Exception;
+	public void insertQna(QnaDto qnaDto) throws Exception;
 
 	public void deleteQna(int qnaIdx) throws Exception;
 	

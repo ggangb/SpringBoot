@@ -26,15 +26,15 @@ public class QnaController {
 	private QnaService qnaService;
 	
 	@ApiOperation(value = "목록 조회", notes = "등록된 Qna 목록을 조회")
-	@RequestMapping(value = "/qna/{itemIdx}", method = RequestMethod.GET)
+	@RequestMapping(value = "/qna/{itemNum}", method = RequestMethod.GET)
 	public List<QnaDto> openQnaList(
-			@Parameter(description = "아이템 번호", required = true, example = "1001001") @PathVariable("itemIdx") int itemIdx) 
+			@Parameter(description = "아이템 번호", required = true, example = "1001001") @PathVariable("itemNum") int itemIdx) 
 					throws Exception {
 		return qnaService.selectQnaList(itemIdx);
 	}
 	
 	@ApiOperation(value = "Qna 상세 조회", notes = "Qna 상세 조회")
-	@RequestMapping(value = "/qnadetail/{qnaIdx}", method = RequestMethod.GET)
+	@RequestMapping(value = "/qna/contents/{qnaIdx}", method = RequestMethod.GET)
 	public ResponseEntity<QnaDto> openQnaDetail(
 			@Parameter(description = "Qna 번호", required = true, example = "1") @PathVariable("qnaIdx") int qnaIdx) throws Exception {
 		QnaDto qnaDto = qnaService.selectQnaDetail(qnaIdx);
@@ -45,18 +45,18 @@ public class QnaController {
 		}
 	}
 	
-	@ApiOperation(value = "Qna 답변 조회", notes = "Qna 답변 조회")
-	@RequestMapping(value = "/qnaAnswer/{qnaIdx}", method = RequestMethod.GET)
-	public ResponseEntity<QnaDto> openQnaAnswer(
-			@Parameter(description = "Qna 번호", required = true, example = "1") @PathVariable("qnaIdx") int qnaIdx) throws Exception {
-		QnaDto qnaDto = qnaService.selectQnaAnswer(qnaIdx);
-		if (qnaDto == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		} else {
-			return ResponseEntity.ok(qnaDto);
-		}
-	}
-	
+//	@ApiOperation(value = "Qna 답변 조회", notes = "Qna 답변 조회")
+//	@RequestMapping(value = "/qnaAnswer/{qnaIdx}", method = RequestMethod.GET)
+//	public ResponseEntity<QnaDto> openQnaAnswer(
+//			@Parameter(description = "Qna 번호", required = true, example = "1") @PathVariable("qnaIdx") int qnaIdx) throws Exception {
+//		QnaDto qnaDto = qnaService.selectQnaAnswer(qnaIdx);
+//		if (qnaDto == null) {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		} else {
+//			return ResponseEntity.ok(qnaDto);
+//		}
+//	}
+//	
 	@ApiOperation(value = "목록 조회", notes = "등록된 게시물 목록을 조회")
 	@RequestMapping(value = "admin/qna", method = RequestMethod.GET)
 	public List<QnaDto> openQnaAllList() throws Exception {
@@ -65,10 +65,10 @@ public class QnaController {
 		
 	@ApiOperation(value = "Qna 등록", notes = "Qna 제목과 내용을 저장")
 	@RequestMapping(value = "/qnaWrite", method = RequestMethod.POST)
-	public void insertQnaComment(
-			@Parameter(description = "Qna 등록", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody QnaDto qna)
-			throws Exception {
-		qnaService.insertQna(qna);
+	public void insertQnaComment(@RequestBody QnaDto qnaDto) throws Exception {
+		
+		System.out.println(qnaDto);
+//		qnaService.insertQna(qnaDto);
 	}
 	
 	@ApiOperation(value = "Qna 답변 등록", notes = "Qna 답변 내용을 저장")

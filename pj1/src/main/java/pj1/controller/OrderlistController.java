@@ -103,36 +103,36 @@ public class OrderlistController {
 		}
 	}
 	
-	@RequestMapping(value = "/mypage/myorderlist/refundgo/{orderNum}", method = RequestMethod.PUT)
-	public void updateRefund(@PathVariable("orderNum") int orderNum) throws Exception {
-		orderlistService.updateRefund(orderNum);
-	}
 	
-	@RequestMapping(value = "/mypage/myorderlist/refundgo/{orderNum}", method = RequestMethod.POST)
-	public ResponseEntity<String> insertMyRefund(@PathVariable("orderNum") int orderNum, @RequestBody OrderlistDto orderlistDto) throws Exception {
-		String refundIdx = orderlistService.insertMyRefund(orderlistDto);
-		System.out.println(refundIdx);
-		if(refundIdx != null) {
+	@RequestMapping(value = "/mypage/myorderlist/refundgo/{orderlistIdx}", method = RequestMethod.POST)
+	public ResponseEntity<String> insertMyRefund(@PathVariable("orderlistIdx") int orderlistIdx, @RequestBody OrderlistDto orderlistDto) throws Exception {
+		System.out.println(orderlistIdx);
+		orderlistService.updateRefund(orderlistIdx);
+
+		int refundIdx = orderlistService.insertMyRefund(orderlistDto);
+		if(refundIdx != 0) {
 			return ResponseEntity.status(HttpStatus.OK).body("반품접수 성공");
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("반품접수 실패");
 		}
 	}
 	
-	@RequestMapping(value = "/mypage/myrefund/refundcancel/{orderNum}", method = RequestMethod.PUT)
-	public void updateRefundCancel(@PathVariable("orderNum") int orderNum) throws Exception {
-		orderlistService.updateRefundCancel(orderNum);
-	}
-	
-	@RequestMapping(value = "/mypage/myrefund/removerefund/{refundIdx}", method = RequestMethod.PUT)
-	public void deleteRefund(@PathVariable("refundIdx") int refundIdx) throws Exception {
+	@RequestMapping(value = "/mypage/myrefund/refundcancle", method = RequestMethod.POST)
+	public void updateRefundCancel(@RequestBody OrderlistDto refundDto) throws Exception {
+
+		int orderlistIdx = refundDto.getOrderlistIdx();
+		int refundIdx = refundDto.getRefundIdx();
+		System.out.println(orderlistIdx);
+		System.out.println(refundIdx);
+		orderlistService.updateRefundCancel(orderlistIdx);
 		orderlistService.deleteRefund(refundIdx);
 	}
 	
 	
+	
 
 	// admin
-	@RequestMapping(value = "/admin/order/{orderlistIdx},{stateSelect}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/orderstate/{orderlistIdx},{stateSelect}", method = RequestMethod.POST)
 	public void orderState(@PathVariable("orderlistIdx") int orderlistIdx ,@PathVariable("stateSelect")String state) throws Exception {
 		
 		
@@ -142,7 +142,7 @@ public class OrderlistController {
 			break;
 		case "배송중":		
 			orderlistService.orderStateDelivery(orderlistIdx);
-			break; // 종료
+			break; 
 		case "배송완료":
 			orderlistService.orderStateComple(orderlistIdx);
 			break;
@@ -150,9 +150,15 @@ public class OrderlistController {
 		}
 		System.out.println(orderlistIdx);
 		System.out.println(state);
-		
-		
+			
 	}
+	
+	@RequestMapping(value= "admin/ordercancle/{orderlistIdx}", method = RequestMethod.POST)
+	public void orderCancle(@PathVariable("orderlistIdx") int orderlistIdx) throws Exception {
+		orderlistService.orderStateCancle(orderlistIdx);
+	}
+	
+	
 
 	@RequestMapping(value = "/admin/order", method = RequestMethod.GET)
 	public List<OrderItemDto> adminOrderlist() throws Exception {

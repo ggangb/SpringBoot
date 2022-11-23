@@ -15,8 +15,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	
 	@Override
-	public List<ReviewDto> selectReviewList() throws Exception {
-		return reviewMapper.selectReviewList();
+	public List<ReviewDto> selectReviewList(int itemNum) throws Exception {
+		return reviewMapper.selectReviewList(itemNum);
 	}
 
 

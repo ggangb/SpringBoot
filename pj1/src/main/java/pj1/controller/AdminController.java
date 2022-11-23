@@ -38,4 +38,15 @@ public class AdminController {
 		adminService.showReview(reviewIdx);
 	}
 	
+	
+	@RequestMapping(value = "/admin/refund", method = RequestMethod.GET)
+	public List<AdminDto> selectAllRefund() throws Exception { 
+		return adminService.selectAllRefund();
+	}
+	
+	@RequestMapping(value = "/admin/refund/{refundIdx}", method = RequestMethod.PUT)
+	public void updateStatus(@PathVariable("refundIdx") int refundIdx) throws Exception {
+		adminService.updateStatus(refundIdx);
+	}
+	
 }

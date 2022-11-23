@@ -12,5 +12,7 @@ public interface AdminMapper {
 	List<AdminDto> selectAllReview() throws Exception;
 	int deleteReview(int reviewIdx) throws Exception;
 	int showReview(int reviewIdx) throws Exception;
+	List<AdminDto> selectAllRefund() throws Exception;
+	void updateStatus(int refundIdx) throws Exception;
 	
 }

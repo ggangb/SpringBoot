@@ -90,27 +90,25 @@ public class OrderlistServiceImpl implements OrderlistService {
 
 	
 	@Override
-	public void updateRefund(int orderNum) throws Exception {
-		int count = orderlistMapper.updateRefund(orderNum);
+	public void updateRefund(int orderlistIdx) throws Exception {
+		int count = orderlistMapper.updateRefund(orderlistIdx);
 		System.out.println("xxxxxxxxxxxxxxxxx" + count);
 	}
 
 	@Override
-	public String insertMyRefund(OrderlistDto orderlistDto) throws Exception {
-			orderlistMapper.insertMyRefund(orderlistDto);
-		return orderlistDto.getOrderNum();
+	public int insertMyRefund(OrderlistDto orderlistDto) throws Exception {
+		return orderlistMapper.insertMyRefund(orderlistDto);
 	}
 
 	@Override
-	public void updateRefundCancel(int orderNum) throws Exception {
-		int count = orderlistMapper.updateRefundCancel(orderNum);
+	public void updateRefundCancel(int orderlistIdx) throws Exception {
+		int count = orderlistMapper.updateRefundCancel(orderlistIdx);
 		System.out.println("xxxxxxxxxxxxxxxxx" + count);
 	}
 
 	@Override
-	public void deleteRefund(int refundIdx) throws Exception {
-		int count = orderlistMapper.deleteRefund(refundIdx);
-		System.out.println("xxxxxxxxxxxxxxxxx" + count);
+	public int deleteRefund(int refundIdx) throws Exception {
+		return orderlistMapper.deleteRefund(refundIdx);
 	}
 	
 	
@@ -135,6 +133,11 @@ public class OrderlistServiceImpl implements OrderlistService {
 	@Override
 	public List<OrderItemDto> selectAllOrderlist() throws Exception {
 		return orderlistMapper.selectAllOrderlist();
+	}
+
+	@Override
+	public int orderStateCancle(int orderlistIdx) throws Exception {
+		return orderlistMapper.orderStateCancle(orderlistIdx);
 	}
 
 }

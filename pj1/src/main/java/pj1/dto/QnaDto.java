@@ -6,7 +6,7 @@ import lombok.Data;
 public class QnaDto {
 	private int qnaIdx;
 	private String memEmail;
-	private int itemIdx;
+	private String itemNum;
 	private String qnaTitle;
 	private String qnaContents;
 	private String qnaWriteDate;

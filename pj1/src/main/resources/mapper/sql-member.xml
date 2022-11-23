@@ -10,10 +10,6 @@
 
 	</select>
 	
-	<select id="selectDetailMember" parameterType="String"  resultType="pj1.dto.MemberDto">
-	select * from member where mem_deleted_yn = 'N' and mem_email = #{memEmail}
-	</select>
-	
 	<select id="validateMemberEmail" parameterType="String"
 		resultType="pj1.dto.MemberDto">
 		select mem_email from member

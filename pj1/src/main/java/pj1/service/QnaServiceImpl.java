@@ -38,8 +38,8 @@ public class QnaServiceImpl implements QnaService {
 		qnaMapper.deleteQna(qnaIdx);
 	}
 	@Override
-	public void insertQna(QnaDto qna) throws Exception {
-		qnaMapper.insertQna(qna);
+	public void insertQna(QnaDto qnaDto) throws Exception {
+		qnaMapper.insertQna(qnaDto);
 	}
 	
 	@Override

@@ -6,7 +6,7 @@ import lombok.Data;
 public class AdminDto {
 	
 	//orderDto
-	private int orderNum;
+	private String orderNum;
 	private String orderStatus;
 	private String orderDate;
 	private int itemNum;

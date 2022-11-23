@@ -8,7 +8,7 @@ import pj1.dto.ReviewDto;
 
 @Mapper
 public interface ReviewMapper {
-	List<ReviewDto> selectReviewList() throws Exception;
+	List<ReviewDto> selectReviewList(int itemNum) throws Exception;
 	
 	ReviewDto selectReviewDetail(int reviewIdx) throws Exception;
 }

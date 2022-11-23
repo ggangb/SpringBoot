@@ -22,15 +22,16 @@ public interface OrderlistService {
 	public int orderDelete(String orderNum) throws Exception;
 	public int orderListDelete(String orderNum) throws Exception;
 	
-	public void updateRefund(int orderNum) throws Exception;
-	public String insertMyRefund(OrderlistDto orderlistDto) throws Exception;
-	public void updateRefundCancel(int orderNum) throws Exception;
-	public void deleteRefund(int refundIdx) throws Exception;
+	public void updateRefund(int orderlistIdx) throws Exception;
+	public int insertMyRefund(OrderlistDto orderlistDto) throws Exception;
+	public void updateRefundCancel(int orderlistIdx) throws Exception;
+	public int deleteRefund(int refundIdx) throws Exception;
 	
 	
 	//admin
 	public int orderState(int orderlistIdx) throws Exception;
 	public int orderStateDelivery(int orderlistIdx) throws Exception;
 	public int orderStateComple(int orderlistIdx) throws Exception;
+	public int orderStateCancle(int orderlistIdx) throws Exception;
 	
 }

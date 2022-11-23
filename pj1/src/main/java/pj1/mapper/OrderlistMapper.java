@@ -24,9 +24,9 @@ public interface OrderlistMapper {
 	int insertAbleReview(OrderlistDto orderlistDto) throws Exception;
 	int orderListDelete(String orderNum) throws Exception;
 	
-	int updateRefund(int orderNum) throws Exception;
-	String insertMyRefund(OrderlistDto orderlistDto) throws Exception;
-	int updateRefundCancel(int orderNum) throws Exception;
+	int updateRefund(int orderlistIdx) throws Exception;
+	int insertMyRefund(OrderlistDto orderlistDto) throws Exception;
+	int updateRefundCancel(int orderlistIdx) throws Exception;
 	int deleteRefund(int refundIdx) throws Exception;
 	
 
@@ -38,6 +38,7 @@ public interface OrderlistMapper {
 	int orderState(int orderlistIdx) throws Exception;
 	int orderStateDelivery(int orderlistIdx) throws Exception;
 	int orderStateComple(int orderlistIdx) throws Exception;
+	int orderStateCancle(int orderlistIdx) throws Exception;
 	
 	
 }

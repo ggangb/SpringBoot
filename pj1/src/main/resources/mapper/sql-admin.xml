@@ -15,4 +15,12 @@
 		update review set review_delete_yn = 'N' where review_idx = #{reviewIdx}
 	</delete>
 	
+	<select id = "selectAllRefund" resultType="pj1.dto.AdminDto">
+		select * from refund
+	</select>
+	
+	<update id = "updateStatus" parameterType="int">
+		update refund set refund_status = '반품완료' where refund_idx = #{refundIdx}
+	</update>
+	
 </mapper>

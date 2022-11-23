@@ -3,7 +3,7 @@
 <mapper namespace="pj1.mapper.QnaMapper">
 	<select id="selectQnaList" parameterType="int" resultType="pj1.dto.QnaDto">
 		select qna_idx,
-		item_idx,
+		item_num,
 		mem_email,
 		qna_title,
 		qna_contents,
@@ -12,7 +12,7 @@
 		qna_ans
 		from qna
 		where qna_save = 'Y' AND
-		item_idx = #{itemIdx}
+		item_num = #{itemNum}
 		order by qna_idx desc
 	</select>
 	<select id="selectQnaAnswer" resultType="pj1.dto.QnaDto">
@@ -29,8 +29,7 @@
 		resultType="pj1.dto.QnaDto">
 		select qna_idx, qna_contents, mem_email,
 		date_format(qna_writeDate, '%m.%d %H:%i') as
-		qna_writeDate,
-		qna_hits
+		qna_writeDate,qna_comment_content
 		from qna
 		where qna_idx
 		=
@@ -43,8 +42,7 @@
 	</select>
 	<insert id="insertQna" parameterType="pj1.dto.QnaDto">
 		insert into qna
-		(mem_email,
-		qna_title, qna_contents, qna_writeDate)
+		(mem_email,qna_title, qna_contents, qna_writeDate)
 		values (
 		#{memEmail},
 		#{qnaTitle},
@@ -54,11 +52,9 @@
 
 	<insert id="insertQnaComment" parameterType="pj1.dto.QnaDto">
 		insert into qna_comment
-		(qna_idx, qna_comment_content,
+		(mem_email,item_num,qna_title, qna_contents,
 		qna_comment_writeDate)
-		values (
-		#{qnaIdx},
-		#{qnaCommentContent}, now()
+		values (#{memEmail},#{itemNum},#{qnaTitle},#{qnaContents}#{qnaCommentContent}, now()
 		)
 	</insert>
 	

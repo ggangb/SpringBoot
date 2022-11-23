@@ -31,4 +31,15 @@ public class AdminServiceImpl implements AdminService {
 		adminMapper.showReview(reviewIdx);
 	}
 
+	@Override
+	public List<AdminDto> selectAllRefund() throws Exception {
+		
+		return adminMapper.selectAllRefund();
+	}
+
+	@Override
+	public void updateStatus(int refundIdx) throws Exception {
+		adminMapper.updateStatus(refundIdx);
+	}
+
 }

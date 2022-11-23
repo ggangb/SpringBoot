@@ -18,8 +18,10 @@ public class OrderlistDto {
 	private String memEmail;
 	private String itemThumb;
 
+
 	//refundDto
 	private int refundAmount;
+	private int refundIdx;
 	private String refundReason;
 	private String refundDate;
 	private String refundStatus;
@@ -28,6 +30,7 @@ public class OrderlistDto {
 	private int reviewIdx;
 	private String reviewWriteYn;
 	private String reviewContents;
+	private String reviewDeleteYn;
 	private String reviewWriteDate;
 	
 	

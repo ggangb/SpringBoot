@@ -16,7 +16,7 @@ public interface QnaMapper {
 
 	QnaDto selectQnaAnswer(int qnaIdx) throws Exception;
 
-	void insertQna(QnaDto qna) throws Exception;
+	void insertQna(QnaDto qnaDto) throws Exception;
 
 	void insertQnaComment(QnaDto qna) throws Exception;
 

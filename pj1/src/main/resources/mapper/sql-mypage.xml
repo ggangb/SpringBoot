@@ -11,9 +11,9 @@
 	
 	
 	<select id="selectRefund" parameterType="int" resultType="pj1.dto.OrderlistDto">
-		select mem_idx, item_name, order_num, refund_amount, refund_reason, refund_status,
+	select r.mem_idx, r.item_name, r.orderlist_idx, r.refund_idx, r.refund_reason, r.refund_status, r.item_price, o.item_thumb,
 		date_format(refund_date, '%Y.%m.%d') as refund_date
-		from refund where mem_idx=#{memIdx} order by refund_date desc
+		from refund r left join orderlist o on r.orderlist_idx = o.orderlist_idx where r.mem_idx= #{memIdx} order by refund_date desc;
 	</select>
 
 	<select id="selectAbleReview" parameterType="int" resultType="pj1.dto.OrderlistDto">
@@ -28,7 +28,7 @@
 	</update>
 	
 	<select id="selectDidReview" parameterType="int" resultType="pj1.dto.OrderlistDto">
-		select r.review_idx, o.orderlist_idx, o.item_thumb, r.review_contents, date_format(review_writeDate, '%Y.%m.%d') as review_writeDate from review r 
+		select r.review_idx, o.orderlist_idx, o.item_thumb, r.review_contents,r.review_delete_yn, date_format(review_writeDate, '%Y.%m.%d') as review_writeDate from review r 
 		left join orderlist o on r.orderlist_idx = o.orderlist_idx 
 		where review_write_yn = 'Y' order by review_idx desc;
 	</select>
@@ -66,28 +66,25 @@
 	</insert>
 		
 	
-	<select id="selectAllOrderlist" resultType="pj1.dto.OrderlistDto">
-		select orderlist_idx,mem_idx, order_num, item_num, item_amount, item_name, item_price, order_status,
-		date_format(order_date, '%Y.%m.%d') as order_date,item_thumb
-		from orderlist 
-	</select>
 	
-		<update id="updateRefund" parameterType="String" >
-		update orderlist set refund_yn = 'Y' where order_Num = #{orderNum}
+	
+	<update id="updateRefund" parameterType="int" >
+		update orderlist set refund_yn = 'Y' where orderlist_idx = #{orderlistIdx}
 	</update>
 	
 	<insert id="insertMyRefund" parameterType="pj1.dto.OrderlistDto">
-		insert into refund(mem_idx, order_num, item_name, refund_reason, item_price) 
-		values(#{memIdx}, #{orderNum}, #{itemName}, #{refundReason}, #{itemPrice})
+		insert into refund(mem_idx, orderlist_idx, item_name, refund_reason, item_price) 
+		values(#{memIdx}, #{orderlistIdx}, #{itemName}, #{refundReason}, #{itemPrice})
 	</insert>
 	
-	<update id="updateRefundCancel" parameterType="String" >
-		update orderlist set refund_yn = 'N' where order_Num = #{orderNum}
+	<update id="updateRefundCancel" parameterType="int" >
+		update orderlist set refund_yn = 'N' where orderlist_idx = #{orderlistIdx}
 	</update>
 	
 	<update id="deleteRefund" parameterType="int">
 		update refund set refund_status = '반품취소' where refund_idx = #{refundIdx}
 	</update>
+	
 	
 	
 	
@@ -104,6 +101,16 @@
 	<update id="orderStateComple" parameterType="int">
 		update orderlist set order_status = "배송완료" where orderlist_idx = #{orderlist_idx}
 	</update>
+	
+	<update id="orderStateCancle" parameterType="int">
+		update orderlist set order_status = "취소완료" where orderlist_idx = #{orderlist_idx}
+	</update>
+	
+	<select id="selectAllOrderlist" resultType="pj1.dto.OrderlistDto">
+		select orderlist_idx,mem_idx, order_num, item_num, item_amount, item_name, item_price, order_status,
+		date_format(order_date, '%Y.%m.%d') as order_date,item_thumb
+		from orderlist where order_status not in ("구매확정","취소완료","배송완료")
+	</select>
 	
 	
 </mapper>

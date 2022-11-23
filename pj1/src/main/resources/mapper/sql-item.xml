@@ -2,17 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pj1.mapper.ItemMapper">
 	<select id="selectItemList" resultType="pj1.dto.ItemDto">
-		 select item_num,item_name, format(item_price,0) as item_price, item_count,item_thumb,item_detailImg,item_organs,category_name
-		  from item where item_deleted_yn = 'N';
-	</select>
-	<select id="selectItemCategory" parameterType="String" resultType="pj1.dto.ItemDto">
-		select * 
-			from item where category_name = #{categoryName};
+		 select item_num,item_name, format(item_price,0) as item_price, item_count,item_thumb,item_detailImg,item_organs
+		  from item where item_deleted_yn = 'N' order by item_created_at desc;
 	</select>
 	
 	<select id="selectItemOrgans" parameterType="String" resultType="pj1.dto.ItemDto">
 		select * 
-			from item where item_organs = #{itemOrgans};
+			from item where item_organs = #{itemOrgans} order by item_created_at desc;
 	</select>
 	
 	<select id="selectItemDetail" parameterType="String" resultType="pj1.dto.ItemDto">
@@ -22,10 +18,9 @@
 	
 	<insert id="itemWrite" parameterType="pj1.dto.ItemDto">
 		insert into item (item_num, item_name, item_price, item_thumb, item_detailImg, item_maker, item_how, item_expDate, 
-
-			item_materials, item_organs, category_name, item_thumb_name, item_detailImg_name
+			item_materials, item_organs, item_thumb_name, item_detailImg_name
 			) values (#{itemNum}, #{itemName},#{itemPrice},#{itemThumb},#{itemDetailImg},#{itemMaker},#{itemHow},#{itemExpDate},
-			#{itemMaterials}, #{itemOrgans}, #{categoryName},#{itemThumbName},#{itemDetailImgName})
+			#{itemMaterials}, #{itemOrgans},#{itemThumbName},#{itemDetailImgName})
 	</insert>
 </mapper>
 
