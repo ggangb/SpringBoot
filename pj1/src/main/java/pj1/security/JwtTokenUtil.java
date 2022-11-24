@@ -50,6 +50,7 @@ public class JwtTokenUtil {
 				.claim("email", memberDto.getMemEmail())
 				.claim("idx",memberDto.getMemIdx())
 				.claim("role",memberDto.getRole())
+				.claim("deleteyn",memberDto.getMemDeletedYn())
 				.setSubject(memberDto.getMemEmail())
 				.setId(UUID.randomUUID().toString())
 				.setIssuedAt(Date.from(now))

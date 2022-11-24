@@ -46,7 +46,7 @@ public class ItemController {
 	}
 	
 	@ApiOperation(value = "카페고리 아이템 분류 조회", notes = "카테고리별 아이템 분류 조회")
-	@RequestMapping(value = "/itemOrgans/{itemOrgans}", method = RequestMethod.GET)
+	@RequestMapping(value = "/item/organs/{itemOrgans}", method = RequestMethod.GET)
 	public List<ItemDto> openItemOrgansList(
 			@Parameter(description = "분류 이름", required = true, example = "장") @PathVariable("itemOrgans") String itemOrgans) throws Exception {
 		
@@ -73,7 +73,7 @@ public class ItemController {
 	}
 
 	@ApiOperation(value = "아이템 등록", notes = "아이템 등록")
-	@RequestMapping(value = "/itemwrite", method = RequestMethod.POST)
+	@RequestMapping(value = "/item/write", method = RequestMethod.POST)
 	public ResponseEntity<Object> insertItem(MultipartFile itemThumb,MultipartFile itemDetailImg, String itemsDto) throws Exception {
 
 		ItemDto itemDto = new ObjectMapper().readValue(itemsDto, ItemDto.class); // String to Object

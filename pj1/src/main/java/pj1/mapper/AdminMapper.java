@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import pj1.dto.AdminDto;
+import pj1.dto.ItemDto;
+
 
 @Mapper
 public interface AdminMapper {
@@ -14,5 +16,7 @@ public interface AdminMapper {
 	int showReview(int reviewIdx) throws Exception;
 	List<AdminDto> selectAllRefund() throws Exception;
 	void updateStatus(int refundIdx) throws Exception;
+	List<ItemDto> selectAdminItemList() throws Exception;
+	ItemDto deleteItem(String itemNum) throws Exception;
 	
 }

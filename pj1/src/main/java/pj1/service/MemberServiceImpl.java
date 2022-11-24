@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,6 +38,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateMemberInfo(MemberDto memberDto) throws Exception {
+		memberDto.setMemPw(passwordEncoder.encode(memberDto.getMemPw()));
 		int count = memberMapper.updateMemberInfo(memberDto);
 		System.out.println("xxxxxxxxxxxxxxxxx" + count);
 	}
@@ -122,8 +125,8 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.findEmail(memName, memPhone);
 	}
 	@Override
-	public MemberDto findPassword(String memEmail,String memName,String memPhone) throws Exception {
-		return memberMapper.findPassword(memEmail, memName, memPhone);
+	public MemberDto findPassword(MemberDto memberDto) throws Exception {
+		return memberMapper.findPassword(memberDto);
 	}
 	
 	@Override
@@ -132,11 +135,22 @@ public class MemberServiceImpl implements MemberService {
 		if (memberDto ==null) {
 			throw new UsernameNotFoundException(username);
 		}
+		
+		
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(memberDto.getRole()));
+		
 		// String username, String password, boolean enabled, boolean accountNonExpired,
-				// boolean credentialsNonExpired, boolean accountNonLocked,
-				// Collection<? extends GrantedAuthority> authorities
-				return new User(memberDto.getMemEmail(), memberDto.getMemPw(), 
-						true, true, true, true, new ArrayList<>());
+		// boolean credentialsNonExpired, boolean accountNonLocked,
+		// Collection<? extends GrantedAuthority> authorities
+		return new User(memberDto.getMemEmail(), memberDto.getMemPw(),
+				true,true,true,true,authorities);
+	}
+	
+	@Override
+	public void updateMemberPW(MemberDto memberDto) throws Exception {
+		memberDto.setMemPw(passwordEncoder.encode(memberDto.getMemPw()));
+		memberMapper.updateMemberPW(memberDto);
 	}
 	
 	@Override

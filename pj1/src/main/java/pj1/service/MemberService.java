@@ -25,6 +25,7 @@ public interface MemberService extends UserDetailsService {
 	
 	public MemberDto validateMemberEmail(String memEmail) throws Exception;
 	public MemberDto findEmail(String memName,String memPhone) throws Exception;
-	public MemberDto findPassword(String memEmail,String memName,String memPhone) throws Exception;
+	public MemberDto findPassword(MemberDto memberDto) throws Exception;
 	 public MemberDto getMemberDetailByEmail(String username);
+	 public void updateMemberPW(MemberDto memberDto) throws Exception;
 }

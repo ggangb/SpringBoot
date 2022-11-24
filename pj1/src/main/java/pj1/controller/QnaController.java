@@ -65,7 +65,7 @@ public class QnaController {
 	}
 		
 	@ApiOperation(value = "Qna 등록", notes = "Qna 제목과 내용을 저장")
-	@RequestMapping(value = "/qnaWrite", method = RequestMethod.POST)
+	@RequestMapping(value = "/qna/write", method = RequestMethod.POST)
 	public ResponseEntity<Object> insertQnaComment(@RequestBody QnaDto qnaDto) throws Exception {
 //		System.out.println(qnaDto);
 		qnaService.insertQna(qnaDto);

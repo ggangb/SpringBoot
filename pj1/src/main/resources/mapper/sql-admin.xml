@@ -7,6 +7,10 @@
 		select * from review
 	</select>
 	
+	<select id = "selectAdminItemList" resultType="pj1.dto.ItemDto">
+		select * from item
+	</select>
+	
 	<delete id = "deleteReview" parameterType="int">
 		update review set review_delete_yn = 'Y' where review_idx = #{reviewIdx}
 	</delete>
@@ -22,5 +26,11 @@
 	<update id = "updateStatus" parameterType="int">
 		update refund set refund_status = '반품완료' where refund_idx = #{refundIdx}
 	</update>
+	
+	<update id = "deleteItem" parameterType="String">
+		update item set item_deleted_yn = 'Y' where item_num = #{itemNum}
+	</update>
+	
+	
 	
 </mapper>

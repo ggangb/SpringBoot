@@ -28,7 +28,7 @@ public class OrderController {
 	private CartService cartService;
 	
 	
-	@RequestMapping(value="/insertOrder", method = RequestMethod.POST)
+	@RequestMapping(value="/order/insert", method = RequestMethod.POST)
 	public int insertOrderInfo(@RequestBody List<OrderItemDto> orderInfo) throws Exception {
 		
 		OrderItemDto order = orderInfo.get(0);

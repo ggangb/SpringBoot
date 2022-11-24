@@ -78,13 +78,15 @@ public class RestMemberApiController {
 	}
 	
 	
-	@RequestMapping(value="/member/{memEmail}/{memName}/{memPhone}",method = RequestMethod.GET)
-	public ResponseEntity<MemberDto> findPassword(@PathVariable("memEmail") String memEmail,@PathVariable("memName")String memName,@PathVariable("memPhone") String memPhone) throws Exception {
-		MemberDto memberDto = memberService.findPassword(memEmail, memName, memPhone);
+	@RequestMapping(value = "/member/findpw", method = RequestMethod.POST)
+	public ResponseEntity<MemberDto> findPassword(@RequestBody MemberDto member) throws Exception {
+		
+		System.out.println(">>>>>>>>>>>>호출");
+		MemberDto memberDto = memberService.findPassword(member);
 		if (memberDto == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}else {
-			return ResponseEntity.ok(memberDto);
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(memberDto);
 		}
 	}
 	
@@ -101,7 +103,7 @@ public class RestMemberApiController {
 		}
 	}
 	
-	@RequestMapping(value = "/checkemail/{memEmail}",method = RequestMethod.GET)
+	@RequestMapping(value = "member/checkemail/{memEmail}",method = RequestMethod.GET)
 	public ResponseEntity<MemberDto> validateMemberEmail(@PathVariable("memEmail") String memEmail) throws Exception {
 		
 		System.out.println(memEmail);
@@ -115,7 +117,7 @@ public class RestMemberApiController {
 		
 	}
 	
-	@RequestMapping(value = "/admin_mem/{memIdx}", method=RequestMethod.GET)
+	@RequestMapping(value = "/admin/mem/{memIdx}", method=RequestMethod.GET)
 	public ResponseEntity<MemberDto> selectMemberDetail(@PathVariable("memIdx")int memIdx) throws Exception{
 		MemberDto memberDto = memberService.selectMemberDetail(memIdx);
 		if(memberDto == null) {
@@ -126,31 +128,36 @@ public class RestMemberApiController {
 	}
 	
 	@RequestMapping(value = "/member/comparepw/{memIdx}", method = RequestMethod.POST)
-	public ResponseEntity<Integer> comparePw(@PathVariable("memIdx") int memIdx, @ModelAttribute("memPw") String memPw) throws Exception {
-		String encodedPw = passwordEncoder.encode(memPw);
+	public ResponseEntity<Integer> comparePw(@PathVariable("memIdx") int memIdx, @ModelAttribute("memPw") String memPw)throws Exception {
 		String memberPass = memberService.selectMemberDetail(memIdx).getMemPw();
-		if(passwordEncoder.matches(encodedPw,memberPass)) {
-			System.out.println("입력값(memPw) : " + encodedPw);
+		if (passwordEncoder.matches(memPw, memberPass)) {
+			System.out.println("입력값(memPw) : " + memPw);
 			System.out.println("유저 비밀번호(memberPass) : " + memberPass);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-			
-		}else {
-			System.out.println("입력값(memPw) else: " + encodedPw);
-			System.out.println("유저 비밀번호(memberPass) else : " + memberPass);
 			return ResponseEntity.status(HttpStatus.OK).body(memIdx);
+		} else {
+			System.out.println("입력값(memPw) 틀림: " + memPw);
+			System.out.println("유저 비밀번호(memberPass) 틀림 : " + memberPass);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
 	
-	@RequestMapping(value = "/admin_mem/{memIdx}", method=RequestMethod.PUT)
+	@RequestMapping(value = "/admin/mem/{memIdx}", method=RequestMethod.PUT)
 	public void adminmemupdate(@PathVariable("memIdx") int memIdx, @RequestBody MemberDto memberDto) throws Exception{
 		memberDto.setMemIdx(memIdx);
 		memberService.adminmemupdate(memberDto);
 	}
 	
-	@RequestMapping(value = "/admin_mem/{memIdx}", method=RequestMethod.DELETE)
+	@RequestMapping(value = "/admin/mem/{memIdx}", method=RequestMethod.DELETE)
 	public void ydeleteMember(@PathVariable("memIdx") int memIdx) throws Exception{
 		memberService.ydeleteMember(memIdx); 
 	}
+	
+	@RequestMapping(value = "/member/updatepw/{memIdx}", method = RequestMethod.PUT)
+	public void updateMemberPW(@PathVariable("memIdx") int memIdx, @RequestBody MemberDto memberDto) throws Exception {
+		memberService.updateMemberPW(memberDto);
+		
+	}
+	
 	
 	@RequestMapping(value = "/member/myinfo/{memIdx}", method = RequestMethod.GET)
 	public ResponseEntity<MemberDto> openMemberDetail(@PathVariable("memIdx") int memIdx) throws Exception {
@@ -175,7 +182,7 @@ public class RestMemberApiController {
 	}
 	
 	
-	@RequestMapping(value = "/admin_mem", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/mem", method = RequestMethod.GET)
 	public List<MemberDto> openAdminMemberList() throws Exception {
 		return memberService.selectMemberList();
 	}

@@ -46,26 +46,27 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 // 접근 권한과 관련한 설정
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
-		// http.authorizeRequests().antMatchers("/**").permitAll();
-		
-//		 /api/member/ 아래의 리소스는 getAuthenticationFilter 필터를 통과해야 접근이 가능 
-//		http.authorizeRequests()
-//		.antMatchers("/api/member/**").authenticated()
-//		.antMatchers("/api/member/**").permitAll()
-//		.and().addFilter(getAuthenticationFilter());
-		http.authorizeRequests()
-		.antMatchers("/**").permitAll()
-		.antMatchers("/login").permitAll()
-		.antMatchers("/api/member/**").permitAll()
-		.antMatchers("/swagger-ui/**").permitAll()
-		.antMatchers("/admin/**").permitAll()
-		.anyRequest().authenticated()
-		.and().addFilter(getAuthenticationFilter())
-.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class).cors();
-
-	}
+	   protected void configure(HttpSecurity http) throws Exception {
+	      http.csrf().disable();
+	      http.authorizeRequests()
+	      //.antMatchers("/**").permitAll()
+	      //.access("hasRole('ADMIN')")
+	      .antMatchers("/item/**").permitAll()
+	      .antMatchers("/files/**").permitAll()
+	         .antMatchers("/login").permitAll()
+	         .antMatchers("/member/**").permitAll()
+	         .antMatchers("/result/**").permitAll()
+	         .antMatchers("/mypage/**").permitAll()
+	         .antMatchers("/order/**").permitAll()
+	         .antMatchers("/qna/**").permitAll()
+	         .antMatchers("/review/**").permitAll()
+	         .antMatchers("/cart/**").permitAll()
+	         .antMatchers("/admin/**").access("hasRole('ADMIN')")
+	         .anyRequest().authenticated()
+	         .and().addFilter(getAuthenticationFilter())
+	         .addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
+	         .cors();
+	   }
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {

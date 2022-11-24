@@ -31,7 +31,7 @@ public class CartController {
 	private CartService cartService;
 
 	@ApiOperation(value = "장바구니 등록", notes = "장바구니 등록")
-	@RequestMapping(value = "/cartinsert", method = RequestMethod.POST)
+	@RequestMapping(value = "/cart/insert", method = RequestMethod.POST)
 	public ResponseEntity<Object> insertCart(@RequestBody CartDto cartDto) throws Exception {
 
 		int success = cartService.insertCart(cartDto);
@@ -53,7 +53,7 @@ public class CartController {
 	}
 
 	@ApiOperation(value = "장바구니 삭제", notes = "장바구니 삭제")
-	@RequestMapping(value = "/cartdelete", method = RequestMethod.POST)
+	@RequestMapping(value = "/cart/delete", method = RequestMethod.POST)
 	// (value="arr[]" String[] arr)
 	public List<CartListDto> deletedCart(@RequestBody List<CartListDto> cartListDto) throws Exception {
 
@@ -73,7 +73,7 @@ public class CartController {
 	}
 	
 	@ApiOperation(value = "장바구니 수량 수정", notes = "장바구니 수량 수정")
-	@RequestMapping(value = "/cartupdate", method = RequestMethod.POST)
+	@RequestMapping(value = "/cart/update", method = RequestMethod.POST)
 	public List<CartListDto> updateCart(@RequestBody CartListDto cartListDto) throws Exception {
 		
 		cartService.updateCartList(cartListDto.getItemAmount(), cartListDto.getCartIdx());

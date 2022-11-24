@@ -26,7 +26,8 @@ public interface MemberMapper {
 	MemberDto findByMemberEmail(String username);
 	MemberDto validateMemberEmail(String memEmail) throws Exception;
 	MemberDto findEmail(String memName,String memPhone) throws Exception;
-	MemberDto findPassword(String memEmail,String memName,String memPhone) throws Exception;
+	MemberDto findPassword(MemberDto memberDto) throws Exception;
+	int updateMemberPW(MemberDto memberDto) throws Exception;
 
 
 	

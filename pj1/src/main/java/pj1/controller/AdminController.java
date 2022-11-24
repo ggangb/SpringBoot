@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pj1.dto.AdminDto;
+import pj1.dto.ItemDto;
 import pj1.service.AdminService;
+import pj1.service.MemberService;
 import pj1.service.OrderlistService;
 
 @RestController
@@ -22,6 +25,29 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	private MemberService memberService;
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	public AdminController(MemberService memberService, BCryptPasswordEncoder passwordEncoder, AdminService adminService) {
+		this.memberService = memberService;
+		this.passwordEncoder = passwordEncoder;
+		this.adminService = adminService;
+	}
+
+	@RequestMapping(value = "/admin/comparepw/{memIdx}", method = RequestMethod.POST)
+	public ResponseEntity<Integer> compareAdminPw(@PathVariable("memIdx") int memIdx, @ModelAttribute("memPw") String memPw)throws Exception {
+		String adminPass = memberService.selectMemberDetail(memIdx).getMemPw();
+		if (passwordEncoder.matches(memPw, adminPass)) {
+			System.out.println("입력값(memPw) : " + memPw);
+			System.out.println("유저 비밀번호(adminPass) : " + adminPass);
+			return ResponseEntity.status(HttpStatus.OK).body(memIdx);
+		} else {
+			System.out.println("입력값(memPw) else: " + memPw);
+			System.out.println("유저 비밀번호(adminPass) else : " + adminPass);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
+	
 	
 	@RequestMapping(value = "/admin/review", method = RequestMethod.GET)
 	public List<AdminDto> selectAllReview() throws Exception { 
@@ -47,6 +73,16 @@ public class AdminController {
 	@RequestMapping(value = "/admin/refund/{refundIdx}", method = RequestMethod.PUT)
 	public void updateStatus(@PathVariable("refundIdx") int refundIdx) throws Exception {
 		adminService.updateStatus(refundIdx);
+	}
+	
+	@RequestMapping(value ="/admin/item", method = RequestMethod.GET)
+	public List<ItemDto> adminItemList() throws Exception {
+		return adminService.selectAdminItemList();
+	}
+	
+	@RequestMapping(value ="/admin/item/delete/{itemNum}", method = RequestMethod.POST)
+	public ItemDto itemDelete(@PathVariable("itemNum")String itemNum) throws Exception {
+		return adminService.deleteItem(itemNum);
 	}
 	
 }

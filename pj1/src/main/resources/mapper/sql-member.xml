@@ -29,9 +29,8 @@
 		mem_phone=#{memPhone}
 	</select>
 
-	<select id="findPassword" parameterType="String"
-		resultType="pj1.dto.MemberDto">
-		select mem_pw from member
+	<select id="findPassword" parameterType="pj1.dto.MemberDto" resultType="pj1.dto.MemberDto">
+		select * from member
 		where mem_deleted_yn = 'N' and
 		mem_email =#{memEmail} and
 		mem_name=#{memName} and
@@ -64,6 +63,15 @@
 		%H:%i:%s')
 		as mem_regDate from member where mem_idx=#{memIdx};
 	</select>
+	
+		<select id="selectDetailMember" parameterType="String"
+		resultType="pj1.dto.MemberDto">
+		select mem_idx, role, mem_email, mem_name, mem_birth, mem_phone,
+		mem_postnum, mem_pw,
+		mem_addr1, mem_addr2, date_format(mem_regDate, '%Y.%m.%d
+		%H:%i:%s')
+		as mem_regDate from member where mem_email=#{memEmail};
+	</select>
 
 	<update id="updateMemberInfo"
 		parameterType="pj1.dto.MemberDto">
@@ -84,6 +92,11 @@
 	
 	<update id = "adminmemupdate" parameterType="pj1.dto.MemberDto">
 		update member set mem_deleted_yn = #{memDeletedYn} , mem_name = #{memName} where mem_idx=#{memIdx}
+	</update>
+	
+	
+	<update id="updateMemberPW" parameterType="pj1.dto.MemberDto">
+	update member set mem_pw=#{memPw},mem_updateDate =now() where mem_idx=#{memIdx};
 	</update>
 
 

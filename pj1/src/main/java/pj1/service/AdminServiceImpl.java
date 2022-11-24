@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj1.dto.AdminDto;
+import pj1.dto.ItemDto;
 import pj1.mapper.AdminMapper;
 
 
@@ -40,6 +41,16 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void updateStatus(int refundIdx) throws Exception {
 		adminMapper.updateStatus(refundIdx);
+	}
+
+	@Override
+	public List<ItemDto> selectAdminItemList() throws Exception {
+		return adminMapper.selectAdminItemList();
+	}
+
+	@Override
+	public ItemDto deleteItem(String itemNum) throws Exception {	
+		return adminMapper.deleteItem(itemNum);
 	}
 
 }

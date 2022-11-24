@@ -25,7 +25,7 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	@ApiOperation(value = "목록 조회", notes = "등록된 아이템 목록을 조회")
-	@RequestMapping(value = "/reviewlist/{itemNum}", method = RequestMethod.GET)
+	@RequestMapping(value = "/review/list/{itemNum}", method = RequestMethod.GET)
 	public List<ReviewDto> openReviewList(
 			@Parameter(description = "상품 번호", required = true, example = "1") @PathVariable("itemNum") int itemNum) throws Exception {
 		return reviewService.selectReviewList(itemNum);

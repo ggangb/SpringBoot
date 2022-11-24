@@ -4,7 +4,7 @@
 
 	<select id="selectReviewList" parameterType="int" resultType="pj1.dto.ReviewDto">
 		select * 
-		from review where item_num = #{itemNum};
+		from review where item_num = #{itemNum} and review_delete_yn = 'N';
 	</select>
 	
 	<select id="selectReviewDetail" parameterType="int" resultType="pj1.dto.ReviewDto">
