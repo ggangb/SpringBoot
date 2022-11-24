@@ -17,6 +17,8 @@ public interface ItemMapper {
 	
 	int itemWrite(ItemDto itemDto) throws Exception;
 	
+	int itemUpdate(ItemDto itemDto) throws Exception;
+	
 	List<ItemDto> selectItemCategory(String categoryName) throws Exception;
 	
 	List<ItemDto> selectItemOrgans(String itemOrgans) throws Exception;

@@ -17,6 +17,6 @@ public interface AdminMapper {
 	List<AdminDto> selectAllRefund() throws Exception;
 	void updateStatus(int refundIdx) throws Exception;
 	List<ItemDto> selectAdminItemList() throws Exception;
-	ItemDto deleteItem(String itemNum) throws Exception;
+	void deleteItem(String itemNum) throws Exception;
 	
 }

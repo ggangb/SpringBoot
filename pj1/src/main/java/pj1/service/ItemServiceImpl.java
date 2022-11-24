@@ -49,6 +49,11 @@ public class ItemServiceImpl implements ItemService {
 		return itemMapper.selectItemOrgans(itemOrgans);
 	}
 
+	@Override
+	public int itemUpdate(ItemDto itemDto) throws Exception {
+		return itemMapper.itemUpdate(itemDto);
+	}
+
 
 
 

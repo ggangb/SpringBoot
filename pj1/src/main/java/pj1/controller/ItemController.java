@@ -73,7 +73,7 @@ public class ItemController {
 	}
 
 	@ApiOperation(value = "아이템 등록", notes = "아이템 등록")
-	@RequestMapping(value = "/item/write", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/item/write", method = RequestMethod.POST)
 	public ResponseEntity<Object> insertItem(MultipartFile itemThumb,MultipartFile itemDetailImg, String itemsDto) throws Exception {
 
 		ItemDto itemDto = new ObjectMapper().readValue(itemsDto, ItemDto.class); // String to Object
@@ -100,6 +100,43 @@ public class ItemController {
 		System.out.println("itemDto= " + itemDto);
 
 		int success = itemService.itemWrite(itemDto);
+
+		if (success > 0) {
+			return ResponseEntity.status(HttpStatus.OK).body("등록성공");
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록실패");
+		}
+
+	}
+	
+	@ApiOperation(value = "아이템 등록", notes = "아이템 등록")
+	@RequestMapping(value = "/admin/item/update", method = RequestMethod.POST)
+	public ResponseEntity<Object> updateItem(MultipartFile itemThumb,MultipartFile itemDetailImg, String itemsDto) throws Exception {
+
+		ItemDto itemDto = new ObjectMapper().readValue(itemsDto, ItemDto.class); // String to Object
+
+		String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+
+		UUID uuid = UUID.randomUUID();
+
+		String fileName = uuid + "_" + itemThumb.getOriginalFilename();
+		String fileName1 = uuid + "_" + itemDetailImg.getOriginalFilename();
+
+		File saveFile = new File(projectPath, fileName);
+		File saveFile1 = new File(projectPath, fileName1);
+
+		itemThumb.transferTo(saveFile);
+		itemDetailImg.transferTo(saveFile1);
+
+		itemDto.setItemDetailImgName(fileName1);
+		itemDto.setItemThumbName(fileName);
+
+		itemDto.setItemDetailImg("/files/" + fileName1);
+		itemDto.setItemThumb("/files/" + fileName);
+
+		System.out.println("itemDto= " + itemDto);
+
+		int success = itemService.itemUpdate(itemDto);
 
 		if (success > 0) {
 			return ResponseEntity.status(HttpStatus.OK).body("등록성공");

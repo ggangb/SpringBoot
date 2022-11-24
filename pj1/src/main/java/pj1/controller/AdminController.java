@@ -80,9 +80,10 @@ public class AdminController {
 		return adminService.selectAdminItemList();
 	}
 	
-	@RequestMapping(value ="/admin/item/delete/{itemNum}", method = RequestMethod.POST)
-	public ItemDto itemDelete(@PathVariable("itemNum")String itemNum) throws Exception {
-		return adminService.deleteItem(itemNum);
+	@RequestMapping(value ="/admin/item/delete{itemNum}", method = RequestMethod.POST)
+	public void itemDelete(@PathVariable("itemNum") String itemNum) throws Exception {
+		System.out.println(itemNum);
+		 adminService.deleteItem(itemNum);
 	}
 	
 }

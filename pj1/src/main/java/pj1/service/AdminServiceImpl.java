@@ -49,8 +49,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public ItemDto deleteItem(String itemNum) throws Exception {	
-		return adminMapper.deleteItem(itemNum);
+	public void deleteItem(String itemNum) throws Exception {	
+		adminMapper.deleteItem(itemNum);
 	}
 
 }

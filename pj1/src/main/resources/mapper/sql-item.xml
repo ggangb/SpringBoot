@@ -22,5 +22,11 @@
 			) values (#{itemNum}, #{itemName},#{itemPrice},#{itemThumb},#{itemDetailImg},#{itemMaker},#{itemHow},#{itemExpDate},
 			#{itemMaterials}, #{itemOrgans},#{itemThumbName},#{itemDetailImgName})
 	</insert>
+	
+	<update id="itemUpdate" parameterType="pj1.dto.ItemDto">
+		update item set item_name=#{itemName}, item_price=#{itemPrice}, item_thumb=#{itemThumb}, item_detailImg=#{itemDetailImg}, item_maker=#{itemMaker},
+		 item_how =#{itemHow}, item_expDate=#{itemExpDate},item_materials=#{itemMaterials}, item_organs=#{itemOrgans},
+		 item_thumb_name =#{itemThumbName}, item_detailImg_name =#{itemDetailImgName} where item_num = #{itemNum};
+	</update>
 </mapper>
 

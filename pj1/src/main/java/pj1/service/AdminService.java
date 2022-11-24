@@ -13,6 +13,6 @@ public interface AdminService {
 	public List<AdminDto> selectAllRefund() throws Exception;
 	public void updateStatus(int refundIdx) throws Exception;
 	public List<ItemDto> selectAdminItemList() throws Exception;
-	public ItemDto deleteItem(String itemNum) throws Exception;
+	public void deleteItem(String itemNum) throws Exception;
 	
 }
