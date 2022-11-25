@@ -80,7 +80,7 @@ public class QnaController {
 		qnaService.insertQnaComment(qna);
 	}
 
-	@RequestMapping(value = "admin/qna/{qnaIdx}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/admin/qna/{qnaIdx}", method = RequestMethod.POST)
 	public void deleteQna(@PathVariable("qnaIdx") int qnaIdx) throws Exception {
 		qnaService.deleteQna(qnaIdx);
 	}

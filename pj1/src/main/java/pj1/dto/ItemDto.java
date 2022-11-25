@@ -9,7 +9,7 @@ import lombok.Data;
 public class ItemDto {
 	private String itemNum;
 	private String itemName;
-	private String itemPrice;
+	private int itemPrice;
 	private int itemCount;
 	private String itemThumb;
 	private String itemDetailImg;

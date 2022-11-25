@@ -30,7 +30,7 @@
 	<select id="selectDidReview" parameterType="int" resultType="pj1.dto.OrderlistDto">
 		select r.review_idx, o.orderlist_idx, o.item_thumb, r.review_contents,r.review_delete_yn, date_format(review_writeDate, '%Y.%m.%d') as review_writeDate from review r 
 		left join orderlist o on r.orderlist_idx = o.orderlist_idx 
-		where review_write_yn = 'Y' order by review_idx desc;
+		where review_write_yn = 'Y' and mem_idx = #{memIdx} order by review_idx desc;
 	</select>
 	
 	<select id="selectReviewDetail" parameterType="int" resultType="pj1.dto.OrderlistDto">
@@ -50,7 +50,7 @@
 	</update>
 	
 	<delete id="orderListDelete" parameterType="String">
-		delete from orderlist WHERE order_num = #{orderNum};
+		delete from orderlist WHERE orderlist_idx = #{orderlistIdx};
 	</delete> 
 	<delete id="orderDelete" parameterType="String">
 		delete from ordereditem where order_num = #{orderNum};

@@ -89,6 +89,7 @@ public class OrderlistController {
 
 	@RequestMapping(value = "/mypage/myorderlist/purchase/{orderlistIdx}", method = RequestMethod.PUT)
 	public void itemPurchase(@PathVariable("orderlistIdx") int orderlistIdx) throws Exception {
+		System.out.println(orderlistIdx);
 		orderlistService.itemPurchase(orderlistIdx);
 	}
 
