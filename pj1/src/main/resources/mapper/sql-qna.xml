@@ -37,7 +37,7 @@
 	
 	<select id="selectAllQnaList" resultType="pj1.dto.QnaDto">
 	select *
-	from qna;
+	from qna where qna_save = 'Y' order by qna_idx desc;
 	</select>
 	<insert id="insertQna" parameterType="pj1.dto.QnaDto">
 		insert into qna

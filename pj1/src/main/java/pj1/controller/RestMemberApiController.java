@@ -176,7 +176,7 @@ public class RestMemberApiController {
 	}
 	
 	
-	@RequestMapping(value = "/member/delete/{memIdx}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/admin/memberdelete/{memIdx}", method = RequestMethod.POST)
 	public void deleteMemberInfo(@PathVariable("memIdx") int memIdx) throws Exception {
 		memberService.deleteMemberInfo(memIdx);
 	}

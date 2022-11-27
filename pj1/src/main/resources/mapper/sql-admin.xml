@@ -8,7 +8,7 @@
 	</select>
 	
 	<select id = "selectAdminItemList" resultType="pj1.dto.ItemDto">
-		select * from item where item_deleted_yn = 'N'
+		select * from item where item_deleted_yn = 'N' order by item_created_at desc;
 	</select>
 	
 	<delete id = "deleteReview" parameterType="int">
@@ -20,7 +20,9 @@
 	</delete>
 	
 	<select id = "selectAllRefund" resultType="pj1.dto.AdminDto">
-		select * from refund
+		select r.mem_idx, r.item_name,o.order_num ,r.orderlist_idx, r.refund_idx, r.refund_reason, r.refund_status, r.item_price, o.item_thumb,
+		date_format(refund_date, '%Y.%m.%d') as refund_date
+		from refund r left join orderlist o on r.orderlist_idx = o.orderlist_idx
 	</select>
 	
 	<update id = "updateStatus" parameterType="int">
