@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import pj1.dto.AdminDto;
 import pj1.dto.ItemDto;
+import pj1.dto.MemberDto;
 
 
 @Mapper
@@ -18,5 +19,7 @@ public interface AdminMapper {
 	void updateStatus(int refundIdx) throws Exception;
 	List<ItemDto> selectAdminItemList() throws Exception;
 	void deleteItem(String itemNum) throws Exception;
+	
+	int adminUpdateMemberPW(MemberDto memberDto) throws Exception;
 	
 }

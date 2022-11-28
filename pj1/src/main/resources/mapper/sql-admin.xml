@@ -33,6 +33,12 @@
 		update item set item_deleted_yn = 'Y' where item_num = #{itemNum}
 	</update>
 	
+	<update id="adminUpdateMemberPW"
+		parameterType="pj1.dto.MemberDto">
+		update member set mem_name=#{memName}, mem_email=#{memEmail},
+		mem_phone=#{memPhone}, mem_updateDate = now() where mem_idx=#{memIdx};
+	</update>
+	
 	
 	
 </mapper>

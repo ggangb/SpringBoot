@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pj1.dto.AdminDto;
 import pj1.dto.ItemDto;
+import pj1.dto.MemberDto;
 import pj1.service.AdminService;
 import pj1.service.MemberService;
 import pj1.service.OrderlistService;
@@ -85,5 +86,12 @@ public class AdminController {
 		System.out.println(itemNum);
 		 adminService.deleteItem(itemNum);
 	}
+	
+	@RequestMapping(value = "/admin/member/updateinfo/{memIdx}", method = RequestMethod.PUT)
+	public void adminUpdateMemberInfo(@PathVariable("memIdx") int memIdx, @RequestBody MemberDto memberDto) throws Exception{
+		
+		adminService.adminUpdateMemberPW(memberDto);
+	}
+	
 	
 }
