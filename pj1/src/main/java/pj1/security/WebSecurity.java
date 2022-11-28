@@ -60,6 +60,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	         .antMatchers("/mypage/**").permitAll()
 	         .antMatchers("/order/**").permitAll()
 	         .antMatchers("/qna/**").permitAll()
+	         .antMatchers("/notice/**").permitAll()
 	         .antMatchers("/review/**").permitAll()
 	         .antMatchers("/cart/**").permitAll()
 	         .antMatchers("/admin/**").access("hasRole('ADMIN')")
@@ -72,7 +73,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://192.168.0.34:3000"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
 		configuration.setAllowCredentials(true);
