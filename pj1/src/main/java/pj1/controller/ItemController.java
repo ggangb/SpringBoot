@@ -53,6 +53,12 @@ public class ItemController {
 		return itemService.selectItemOrgans(itemOrgans);
 	}
 	
+	@ApiOperation(value = "검색 조회", notes = "검색키워드 아이템 목록을 조회")
+	@RequestMapping(value = "/searchlist/{keyword}", method = RequestMethod.GET)
+	public List<ItemDto> openSearchList(@Parameter(description = "검색어", required = true, example = "검색어") @PathVariable("keyword") String keyword) throws Exception {
+		return itemService.selectSearchList(keyword);
+	}
+	
 	
 
 	

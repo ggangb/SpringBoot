@@ -62,6 +62,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	         .antMatchers("/qna/**").permitAll()
 	         .antMatchers("/notice/**").permitAll()
 	         .antMatchers("/review/**").permitAll()
+	         .antMatchers("/searchlist/**").permitAll()
 	         .antMatchers("/cart/**").permitAll()
 	         .antMatchers("/admin/**").access("hasRole('ADMIN')")
 	         .anyRequest().authenticated()
@@ -74,8 +75,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://project-react.s3-website.ap-northeast-2.amazonaws.com"));
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://192.168.0.34:3000"));
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://yeongyangshop.s3-website.ap-northeast-2.amazonaws.com"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
 		configuration.setAllowCredentials(true);

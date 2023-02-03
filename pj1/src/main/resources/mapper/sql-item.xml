@@ -16,6 +16,11 @@
 		from item where item_deleted_yn = 'N' and item_num = #{itemNum}
 	</select>
 	
+	<select id="selectSearchList" parameterType="String" resultType="pj1.dto.ItemDto">
+		select * 
+		from item where item_name like  CONCAT('%',#{keyword},'%')
+	</select>
+	
 	<insert id="itemWrite" parameterType="pj1.dto.ItemDto">
 		insert into item (item_num, item_name, item_price, item_thumb, item_detailImg, item_maker, item_how, item_expDate, 
 			item_materials, item_organs, item_thumb_name, item_detailImg_name

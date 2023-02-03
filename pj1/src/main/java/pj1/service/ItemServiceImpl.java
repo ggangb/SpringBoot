@@ -54,6 +54,11 @@ public class ItemServiceImpl implements ItemService {
 		return itemMapper.itemUpdate(itemDto);
 	}
 
+	@Override
+	public List<ItemDto> selectSearchList(String keyword) throws Exception {
+		return itemMapper.selectSearchList(keyword);
+	}
+
 
 
 

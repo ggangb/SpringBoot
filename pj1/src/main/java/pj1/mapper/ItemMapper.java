@@ -22,6 +22,7 @@ public interface ItemMapper {
 	List<ItemDto> selectItemCategory(String categoryName) throws Exception;
 	
 	List<ItemDto> selectItemOrgans(String itemOrgans) throws Exception;
+	List<ItemDto> selectSearchList(String keyword) throws Exception;
 	
 
 	
