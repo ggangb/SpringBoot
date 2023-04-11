@@ -34,11 +34,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException,IOException {
 		
-		String requestToTokenHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+		String requestToTokenHeader = request.getHeader("Authorization");
 		
 		String subject = null;	// 이메일
 		String jwtToken = null;
 		if (requestToTokenHeader != null && requestToTokenHeader.startsWith("Bearer ")) {
+			System.out.println(requestToTokenHeader.substring(7, requestToTokenHeader.length()));
 			jwtToken = requestToTokenHeader.substring(7);
 			try {
 				subject = jwtTokenUtil.getSubjectFromToken(jwtToken);

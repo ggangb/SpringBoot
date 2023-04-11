@@ -49,6 +49,7 @@ public class RestMemberApiController {
 	}
 	
 	
+	
 	@RequestMapping(value="/member/{memEmail}", method = RequestMethod.GET)
 	public MemberDto openDetailMember(
 			@Parameter(description = "회원 이메일", required = true, example = "이메일") @PathVariable("memEmail") String memEmail) throws Exception {

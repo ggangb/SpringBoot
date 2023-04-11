@@ -1,3 +1,4 @@
+
 package pj1.security;
 
 import java.io.IOException;
@@ -86,7 +87,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 //		log.debug(jwtToken);
 		
 		String jwtToken = jwtTokenUtil.generateToken(memberDto);
-		
 		response.setHeader("token",jwtToken);
 		response.getWriter().write(jwtToken);
 //		response.getWriter().write(memberDto.getMemEmail());

@@ -2,6 +2,7 @@ package pj1.security;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -10,7 +11,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.CustomUserTypesOAuth2UserService;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -36,6 +39,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		this.jwtRequestFilter = jwtRequestFilter;
 		
 	}
+	
+	
+	
+	
 
 //	   @Override
 //	   protected void configure(HttpSecurity http) throws Exception { 
@@ -47,13 +54,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 // 접근 권한과 관련한 설정
 	@Override
 	   protected void configure(HttpSecurity http) throws Exception {
-	      http.csrf().disable();
+	      http.csrf().disable()
+	      .formLogin().disable();
+//	      .sessionManagement()
+//          .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	      
 	      http.authorizeRequests()
 	      //.antMatchers("/**").permitAll()
 	      //.access("hasRole('ADMIN')")
 	      .antMatchers("/item/**").permitAll()
 	      .antMatchers("/files/**").permitAll()
 	         .antMatchers("/login").permitAll()
+	         .antMatchers("/").permitAll()
+	         .antMatchers("/login/**").permitAll()
 	         .antMatchers("/member/**").permitAll()
 	         .antMatchers("/result/**").permitAll()
 	         .antMatchers("/service/**").permitAll()
@@ -64,11 +77,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	         .antMatchers("/review/**").permitAll()
 	         .antMatchers("/searchlist/**").permitAll()
 	         .antMatchers("/cart/**").permitAll()
+	         .antMatchers("/auth/**").permitAll()
 	         .antMatchers("/admin/**").access("hasRole('ADMIN')")
 	         .anyRequest().authenticated()
-	         .and().addFilter(getAuthenticationFilter())
+	         .and()
+	         .addFilter(getAuthenticationFilter())
 	         .addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
 	         .cors();
+
+	         
+	         
 	   }
 	
 	@Bean

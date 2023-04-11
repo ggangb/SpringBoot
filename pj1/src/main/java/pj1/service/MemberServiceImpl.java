@@ -77,6 +77,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		MemberDto memberDto = new MemberDto();
 		memberDto.setMemEmail(requestVo.getMemEmail());
+		System.out.println(requestVo.getMemEmail());
 		 memberDto.setMemPw(requestVo.getMemPw());
 		 
 		
